@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/championlong/backend-common/app/global"
-	"github.com/mojocn/base64Captcha"
 	"go.uber.org/zap"
 )
 
@@ -20,11 +19,6 @@ type RedisStore struct {
 	Expiration time.Duration
 	PreKey     string
 	Context    context.Context
-}
-
-func (rs *RedisStore) UseWithCtx(ctx context.Context) base64Captcha.Store {
-	rs.Context = ctx
-	return rs
 }
 
 func (rs *RedisStore) Set(id string, value string) {
