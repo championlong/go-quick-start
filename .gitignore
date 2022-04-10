@@ -20,3 +20,8 @@
 *.ntvs*
 *.njsproj
 *.sln
+*.iml
+
+/app/log/
+/app/gva
+/app/latest_log
