@@ -1,8 +1,9 @@
 package system
 
 import (
+	v1 "github.com/championlong/backend-common/app/controller"
+	"github.com/championlong/backend-common/app/middleware"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-contrib/sessions"
 )
 
 type UserRouter struct{}

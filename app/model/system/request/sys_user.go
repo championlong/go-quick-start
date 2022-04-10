@@ -1,7 +1,5 @@
 package request
 
-import model "github.com/championlong/backend-common/model/system"
-
 // User register structure
 type Register struct {
 	Username     string   `json:"userName"`
@@ -45,5 +43,4 @@ type ChangeUserInfo struct {
 	AuthorityIds []string             `json:"authorityIds" gorm:"-"`                                                                // 角色ID
 	Email        string               `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
 	HeaderImg    string               `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像
-	Authorities  []model.SysAuthority `json:"-" gorm:"many2many:sys_user_authority;"`
 }
