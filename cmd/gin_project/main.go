@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/championlong/backend-common/app/core"
 	"github.com/championlong/backend-common/app/global"
 	"github.com/championlong/backend-common/app/initialize"
+	"github.com/championlong/backend-common/dingding"
 	"go.uber.org/zap"
 )
 
@@ -24,8 +24,7 @@ func main() {
 	global.GVA_VP = core.Viper() // 初始化Viper
 	global.GVA_LOG = core.Zap()  // 初始化zap日志库
 	zap.ReplaceGlobals(global.GVA_LOG)
-	//dingding.Init(global.GVA_CONFIG.Dingding)
-	fmt.Println(global.GVA_CONFIG.Dingding)
+	dingding.Init(global.GVA_CONFIG.Dingding)
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
 	initialize.Timer()
 	initialize.DBList()
