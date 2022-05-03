@@ -1,7 +1,7 @@
 package dingding
 
 import (
-	"github.com/championlong/backend-common/backend-common/dingding/model"
+	"github.com/championlong/backend-common/dingding/model"
 )
 
 var dingdingConfig *model.DingdingConfig
