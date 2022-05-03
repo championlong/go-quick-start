@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/championlong/backend-common/app/grpc/client/proto/hello"
+	"github.com/championlong/backend-common/demo/grpc/client/proto/hello"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"io"

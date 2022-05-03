@@ -17,6 +17,12 @@
 ### RoomBooking
 > 抢占会议室
 
+### 钉钉机器人
+> 钉钉机器人配置发送模块化
+
+* 使用方式: go get github.com/championlong/backend-common/dingding
+* 支持类型: Text、Markdown
+
 ### 相关技术Demo
 * gRPC
 * Kafka

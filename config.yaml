@@ -200,3 +200,12 @@ cors:
       allow-methods: GET, POST
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
       allow-credentials: true # 布尔值
+
+dingding:
+  web-hook:
+    url: https://oapi.dingtalk.com/robot/send
+    dingding-query:
+      alert-robot:
+        is-keys-word: true
+        keys-word: 通知
+        access-token: 3434qeq11234

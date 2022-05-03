@@ -2,8 +2,8 @@ package hello_controller
 
 import (
 	"fmt"
+	"github.com/championlong/backend-common/demo/grpc/server/proto/hello"
 	"golang.org/x/net/context"
-	"github.com/championlong/backend-common/app/grpc/server/proto/hello"
 )
 
 type HelloController struct{}

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/championlong/backend-common/app/grpc/server/controller/hello_controller"
-	"github.com/championlong/backend-common/app/grpc/server/proto/hello"
+	"github.com/championlong/backend-common/demo/grpc/server/controller/hello_controller"
+	"github.com/championlong/backend-common/demo/grpc/server/proto/hello"
 	"google.golang.org/grpc"
 	"log"
 	"net"
