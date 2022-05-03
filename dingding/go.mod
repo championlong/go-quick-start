@@ -1,4 +1,4 @@
-module github.com/championlong/backend-common/backend-common/dingding
+module github.com/championlong/backend-common/dingding
 
 go 1.16
 
