@@ -26,11 +26,18 @@ type HttpClient struct {
 }
 
 const (
-	DEFAULT_USER_AGENT = ""
+	DEFAULT_RETRY_TIMES = 3
+	DEFAULT_USER_AGENT = "default"
 )
 
-var DefaultRateLimiter = map[string]*juju_ratelimit.Bucket{
-	DEFAULT_USER_AGENT: juju_ratelimit.NewBucket(time.Second, 1), //1 per second
+var (
+	DefaultRateLimiter = map[string]*juju_ratelimit.Bucket{
+		DEFAULT_USER_AGENT: juju_ratelimit.NewBucket(time.Second, 1), //1 per second
+	}
+)
+
+func NewDefaultHttpClient() HttpClient {
+	return NewHttpClient(DefaultRateLimiter, 2, DEFAULT_RETRY_TIMES)
 }
 
 func NewHttpClient(rateLimiter map[string]*juju_ratelimit.Bucket, retryTimes int, timeout time.Duration) HttpClient {
