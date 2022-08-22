@@ -35,14 +35,14 @@ func Consume(msgChan chan string) {
 	config.Consumer.Offsets.Initial = sarama.OffsetNewest
 	consumer, err := sarama.NewConsumerGroup([]string{"10.30.102.60:9092"}, "momo-q1c25", config)
 	if err != nil {
-		panic(err)
+		panic(recover())
 	}
 	go func() {
 		defer consumer.Close()
 		for {
 			err := consumer.Consume(context.Background(), []string{"meeting_status_channel"}, &consumerGroupHandler{msgChan: msgChan})
 			if err != nil {
-				panic(err)
+				panic(recover())
 			}
 		}
 	}()
