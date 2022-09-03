@@ -3,38 +3,38 @@ package ioc
 import "fmt"
 
 type TestCase interface {
-	doTest() bool
-}
-
-func run() {
-	if doTest() {
-		fmt.Println("Success")
-	} else {
-		fmt.Println("Fail")
-	}
-}
-
-func doTest() bool {
-	return true
+	DoTest() bool
 }
 
 type JunitApplication struct {
-	testCases []TestCase
+	TestCases []TestCase
 }
 
 func NewJunitApplication() *JunitApplication {
 	return &JunitApplication{
-		testCases: make([]TestCase, 0),
+		TestCases: make([]TestCase, 0),
 	}
 }
 
 func (self *JunitApplication) Register(testCase TestCase) {
-	self.testCases = append(self.testCases, testCase)
+	self.TestCases = append(self.TestCases, testCase)
+}
+
+func (self *JunitApplication) Run() {
+	for _, testCase := range self.TestCases{
+		result := testCase.DoTest()
+		if result {
+			fmt.Println("success")
+		} else {
+			fmt.Println("fail")
+		}
+	}
 }
 
 type UserServiceTest struct {
 }
 
-func (self *UserServiceTest) doTest() bool {
+func (self *UserServiceTest) DoTest() bool {
+	fmt.Println("test")
 	return true
 }

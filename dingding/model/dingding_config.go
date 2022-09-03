@@ -27,13 +27,3 @@ type DingdingQueryConfig struct {
 	// AccessToken 请求token信息
 	AccessToken string `mapstructure:"access-token" json:"access-token" yaml:"access-token"`
 }
-
-// UrlConfig 基础的url配置，包含url、query、params
-type UrlConfig struct {
-	// Url 公司钉钉发送URL地址
-	Url string `mapstructure:"url" json:"url" yaml:"url"`
-	// Query 请求参数
-	Query map[string]string `mapstructure:"query" json:"query" yaml:"query"`
-	// Params 参数
-	Params map[string]string `mapstructure:"params" json:"params" yaml:"params"`
-}
