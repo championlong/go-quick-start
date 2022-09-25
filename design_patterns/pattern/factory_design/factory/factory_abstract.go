@@ -25,3 +25,13 @@ func (j jsonConfigParserFactory) CreateRuleParser() IRuleConfigParser {
 func (j jsonConfigParserFactory) CreateSystemParser() ISystemConfigParser {
 	return jsonSystemConfigParser{}
 }
+
+type xmlConfigParserFactory struct{}
+
+func (j xmlConfigParserFactory) CreateRuleParser() IRuleConfigParser {
+	return jsonRuleConfigParser{}
+}
+
+func (j xmlConfigParserFactory) CreateSystemParser() ISystemConfigParser {
+	return jsonSystemConfigParser{}
+}
