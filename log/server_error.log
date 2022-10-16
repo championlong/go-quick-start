@@ -1,0 +1,1 @@
+[backend-common]2022/09/08 - 08:49:08.842	[31merror[0m	/Users/chenglong/project/backend-common/app/core/server.go:38	accept tcp [::]:8888: use of closed network connection

@@ -1,0 +1,5 @@
+[backend-common]2022/09/08 - 08:48:22.615	[34minfo[0m	/Users/chenglong/project/backend-common/app/initialize/router.go:30	use middleware logger
+[backend-common]2022/09/08 - 08:48:22.615	[34minfo[0m	/Users/chenglong/project/backend-common/app/initialize/router.go:34	use middleware cors
+[backend-common]2022/09/08 - 08:48:22.615	[34minfo[0m	/Users/chenglong/project/backend-common/app/initialize/router.go:36	register swagger handler
+[backend-common]2022/09/08 - 08:48:22.616	[34minfo[0m	/Users/chenglong/project/backend-common/app/initialize/router.go:54	router register success
+[backend-common]2022/09/08 - 08:48:22.616	[34minfo[0m	/Users/chenglong/project/backend-common/app/core/server.go:36	server run success on 	{"address": ":8888"}
