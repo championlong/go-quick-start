@@ -22,7 +22,7 @@ const (
 	MeetingRoomStatusBusy   = "busy"
 	MeetingRoomStatusClosed = "closed"
 
-	UserToken = "11e1fde8f60b73323e4299057a5dd66b5be74199"
+	UserToken = ""
 )
 
 type MeetingRoom struct {
@@ -220,7 +220,7 @@ func info(ctx context.Context, id string) (string, error) {
 		"user_token": UserToken,
 	}
 	reqBody, _ := json.Marshal(body)
-	request, err := http.NewRequestWithContext(ctx, "POST", "http://10.30.102.148:80/api/info", bytes.NewReader(reqBody))
+	request, err := http.NewRequestWithContext(ctx, "POST", "", bytes.NewReader(reqBody))
 	resp, err := client.Do(request)
 	if err != nil {
 		return "", err
@@ -238,7 +238,7 @@ func book(ctx context.Context, id string) (bool, error) {
 		"user_token": UserToken,
 	}
 	reqBody, _ := json.Marshal(body)
-	request, err := http.NewRequestWithContext(ctx, "POST", "http://10.30.102.148:80/api/book", bytes.NewReader(reqBody))
+	request, err := http.NewRequestWithContext(ctx, "POST", "", bytes.NewReader(reqBody))
 	resp, err := client.Do(request)
 	if err != nil {
 		return false, err
@@ -274,7 +274,7 @@ func Consume(msgChan chan string) {
 	config.Consumer.Return.Errors = false
 	config.Version = sarama.V1_0_0_0
 	config.Consumer.Offsets.Initial = sarama.OffsetNewest
-	consumer, err := sarama.NewConsumerGroup([]string{"10.30.102.60:9092"}, "momo-q1c25", config)
+	consumer, err := sarama.NewConsumerGroup([]string{""}, "", config)
 	if err != nil {
 		panic(err)
 	}
