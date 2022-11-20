@@ -6,7 +6,12 @@ import (
 	"os"
 )
 
-var algs = make(map[string]ISortAlg)
+var algs = map[string]ISortAlg{
+	ALGS_KEY_QUICK_SORT:      QuickSort{},
+	ALGS_KEY_EXTERNAl_SORT:   ExternalSort{},
+	ALGS_KEY_CONCURRENT_SORT: ConcurrentExternalSort{},
+	ALGS_KEY_MAP_REDUCE_SORT: MapReduceSort{},
+}
 
 const (
 	ALGS_KEY_QUICK_SORT      = "QuickSort"
@@ -16,13 +21,6 @@ const (
 )
 
 type SortAlgFactory struct {
-}
-
-func NewSortAlgFactory() {
-	algs[ALGS_KEY_QUICK_SORT] = QuickSort{}
-	algs[ALGS_KEY_EXTERNAl_SORT] = ExternalSort{}
-	algs[ALGS_KEY_CONCURRENT_SORT] = ConcurrentExternalSort{}
-	algs[ALGS_KEY_MAP_REDUCE_SORT] = MapReduceSort{}
 }
 
 func (self SortAlgFactory) getSortAlg(sortType string) (ISortAlg, error) {
@@ -57,12 +55,11 @@ func (self AlgRange) inRange(size int64) bool {
 var algsArray []AlgRange
 var GB = 1000 * 1000 * 1000
 
-func init()  {
+func init() {
 	NewSorter()
 }
 
 func NewSorter() {
-	NewSortAlgFactory()
 	algsArray = append(algsArray, NewAlgRange(0, int64(6*GB), algs[ALGS_KEY_QUICK_SORT]))
 	algsArray = append(algsArray, NewAlgRange(int64(6*GB), int64(10*GB), algs[ALGS_KEY_EXTERNAl_SORT]))
 	algsArray = append(algsArray, NewAlgRange(int64(10*GB), int64(100*GB), algs[ALGS_KEY_CONCURRENT_SORT]))
