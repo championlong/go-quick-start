@@ -15,8 +15,9 @@ import (
 
 const (
 	//机器人发送消息类型
-	WEBHOOK_SEND_TEXT     = "text"
-	WEBHOOK_SEND_MARKDOWN = "markdown"
+	WEBHOOK_SEND_TEXT                = "text"
+	WEBHOOK_SEND_MARKDOWN            = "markdown"
+	WEBHOOK_SEND_ONESELF_ACTION_CARD = "oneself_action_card"
 )
 
 type DingdingMasterJob struct {
@@ -28,7 +29,7 @@ type DingdingMasterJob struct {
 	AtUsersId          []string //@userid
 	Type               string   //发送类型
 	Title              string   //标题
-	BtnOrientation     string   //按钮排列
+	BtnOrientation     AcitonCardBtnOrientation   //按钮排列
 	ActionCardBtnValue []model.ActionCardBtn
 	Query              model.DingdingQueryConfig
 	ConfigType         interface{}
@@ -62,15 +63,18 @@ func (t *DingDingJobAdapter) GetDynamicWebHookRobot(kindRobot string) DingDingSe
 }
 
 type DingDingSendJob interface {
-	DingDingSendGroupText(content string, atMobiles, atUsersId []string, isAtAll bool) error                               //钉钉群组发text类型信息
-	DingDingSendMarkdown(content, title string, atMobiles, atUsersId []string, isAtAll bool) error                         //钉钉群组发markdown类型信息 	//钉钉群组发送工作通知Markdown类型，走公司api
+	DingDingSendGroupText(content string, atMobiles, atUsersId []string, isAtAll bool) error               //钉钉群组发text类型信息
+	DingDingSendMarkdown(content, title string, atMobiles, atUsersId []string, isAtAll bool) error         //钉钉群组发markdown类型信息
+	DingDingSendOneselfActionCard(content, title string, btnOrientation AcitonCardBtnOrientation,
+		btns []model.ActionCardBtn) error //钉钉群组发独立跳转ActionCard类型
+
 }
 
-//conetne:消息内容
-//atMobiles:@手机号
-//atUsersId:@用户ID
-//isAtAll:@所有人
-//指定机器人向钉钉群组发送text消息
+// DingDingSendGroupText 指定机器人向钉钉群组发送text消息
+// content:消息内容
+// atMobiles:@手机号
+// atUsersId:@用户ID
+// isAtAll:@所有人
 func (dingdingJob *DingdingMasterJob) DingDingSendGroupText(content string, atMobiles, atUsersId []string, isAtAll bool) error {
 	dingdingJob.Content = content
 	dingdingJob.AtMobiles = atMobiles
@@ -95,6 +99,31 @@ func (dingdingJob *DingdingMasterJob) DingDingSendMarkdown(content, title string
 	dingdingJob.AtUsersId = atUsersId
 	dingdingJob.IsAtAll = isAtAll
 	dingdingJob.Type = WEBHOOK_SEND_MARKDOWN
+
+	err := dingdingJob.PostDingdingWebHookMsg()
+	if err != nil {
+		utils.Err("DingDingSendMarkdown send fail.robot:%s content:%s err:%s", dingdingJob.KindRobot, content, err.Error())
+		return err
+	}
+	utils.Info("send dingding successfully %s", dingdingJob.KindRobot)
+	return nil
+}
+
+type AcitonCardBtnOrientation string
+
+const (
+	Vertical   AcitonCardBtnOrientation = "0"
+	Horizontal AcitonCardBtnOrientation = "1"
+)
+
+// DingDingSendOneselfActionCard 指定机器人向钉钉群组发送独立跳转ActionCard类型
+func (dingdingJob *DingdingMasterJob) DingDingSendOneselfActionCard(content, title string,
+	btnOrientation AcitonCardBtnOrientation, btns []model.ActionCardBtn) error {
+	dingdingJob.Content = content
+	dingdingJob.Title = title
+	dingdingJob.BtnOrientation = btnOrientation
+	dingdingJob.ActionCardBtnValue = btns
+	dingdingJob.Type = WEBHOOK_SEND_ONESELF_ACTION_CARD
 
 	err := dingdingJob.PostDingdingWebHookMsg()
 	if err != nil {
@@ -132,6 +161,8 @@ func (dingdingJob *DingdingMasterJob) PostDingdingWebHookMsg() error {
 		msgInfo = dingdingJob.getTextMsg()
 	case WEBHOOK_SEND_MARKDOWN:
 		msgInfo = dingdingJob.getMarkdownMsg()
+	case WEBHOOK_SEND_ONESELF_ACTION_CARD:
+		msgInfo = dingdingJob.getOneselfActionCardMsg()
 	}
 	var resBody, err = dingdingClient.PostJsonWithRetry(utils.PackUrl(dingdingJob.Url, queries), msgInfo)
 
@@ -196,7 +227,7 @@ func (dingdingJob *DingdingMasterJob) getMarkdownMsg() map[string]interface{} {
 	return text
 }
 
-func (dingdingJob *DingdingMasterJob) getActionCardMsg() map[string]interface{} {
+func (dingdingJob *DingdingMasterJob) getOneselfActionCardMsg() map[string]interface{} {
 	var subActionCard = map[string]interface{}{
 		"title":          dingdingJob.Title,
 		"text":           dingdingJob.Content,
