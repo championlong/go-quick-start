@@ -1,13 +1,7 @@
 package model
 
-// DingdingConfig 钉钉配置
-type DingdingConfig struct {
-	// WebHook 钉钉官方配置
-	WebHook DingdingKindConfig `mapstructure:"web-hook" json:"web-hook" yaml:"web-hook"`
-}
-
 // DingdingKindConfig 钉钉官方配置
-type DingdingKindConfig struct {
+type DingdingConfig struct {
 	// Url 钉钉发送URl
 	Url string `mapstructure:"url" json:"url" yaml:"url"`
 	// DingdingQuery 机器人列表

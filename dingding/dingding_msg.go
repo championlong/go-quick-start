@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/championlong/backend-common/dingding/message"
 	"github.com/championlong/backend-common/dingding/model"
 	"github.com/championlong/backend-common/dingding/utils"
 	"net/url"
@@ -29,10 +30,9 @@ type DingdingMasterJob struct {
 	AtUsersId          []string //@userid
 	Type               string   //发送类型
 	Title              string   //标题
-	BtnOrientation     AcitonCardBtnOrientation   //按钮排列
+	BtnOrientation     message.AcitonCardBtnOrientation   //按钮排列
 	ActionCardBtnValue []model.ActionCardBtn
 	Query              model.DingdingQueryConfig
-	ConfigType         interface{}
 }
 
 type DingDingJobAdapter struct {
@@ -46,8 +46,8 @@ var DingdingDynamicQuery map[string]model.DingdingQueryConfig
 func (t *DingDingJobAdapter) GetConfigWebHookRobot(kindRobot string) DingDingSendJob {
 	dingdingJob := new(DingdingMasterJob)
 	dingdingJob.KindRobot = kindRobot
-	dingdingJob.Url = GetConfig().WebHook.Url
-	notify := GetConfig().WebHook.DingdingQuery
+	dingdingJob.Url = GetConfig().Url
+	notify := GetConfig().DingdingQuery
 	dingdingJob.Query = notify[kindRobot]
 	return dingdingJob
 }
@@ -56,7 +56,7 @@ func (t *DingDingJobAdapter) GetConfigWebHookRobot(kindRobot string) DingDingSen
 func (t *DingDingJobAdapter) GetDynamicWebHookRobot(kindRobot string) DingDingSendJob {
 	dingdingJob := new(DingdingMasterJob)
 	dingdingJob.KindRobot = kindRobot
-	dingdingJob.Url = GetConfig().WebHook.Url
+	dingdingJob.Url = GetConfig().Url
 	query := DingdingDynamicQuery[kindRobot]
 	dingdingJob.Query = query
 	return dingdingJob
@@ -65,7 +65,7 @@ func (t *DingDingJobAdapter) GetDynamicWebHookRobot(kindRobot string) DingDingSe
 type DingDingSendJob interface {
 	DingDingSendGroupText(content string, atMobiles, atUsersId []string, isAtAll bool) error               //钉钉群组发text类型信息
 	DingDingSendMarkdown(content, title string, atMobiles, atUsersId []string, isAtAll bool) error         //钉钉群组发markdown类型信息
-	DingDingSendOneselfActionCard(content, title string, btnOrientation AcitonCardBtnOrientation,
+	DingDingSendOneselfActionCard(content, title string, btnOrientation message.AcitonCardBtnOrientation,
 		btns []model.ActionCardBtn) error //钉钉群组发独立跳转ActionCard类型
 
 }
@@ -109,16 +109,10 @@ func (dingdingJob *DingdingMasterJob) DingDingSendMarkdown(content, title string
 	return nil
 }
 
-type AcitonCardBtnOrientation string
-
-const (
-	Vertical   AcitonCardBtnOrientation = "0"
-	Horizontal AcitonCardBtnOrientation = "1"
-)
 
 // DingDingSendOneselfActionCard 指定机器人向钉钉群组发送独立跳转ActionCard类型
 func (dingdingJob *DingdingMasterJob) DingDingSendOneselfActionCard(content, title string,
-	btnOrientation AcitonCardBtnOrientation, btns []model.ActionCardBtn) error {
+	btnOrientation message.AcitonCardBtnOrientation, btns []model.ActionCardBtn) error {
 	dingdingJob.Content = content
 	dingdingJob.Title = title
 	dingdingJob.BtnOrientation = btnOrientation
