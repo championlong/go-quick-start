@@ -2,8 +2,6 @@ package config
 
 // DingdingConfig 钉钉官方配置
 type DingdingConfig struct {
-	// Url 钉钉发送URl
-	Url string `mapstructure:"url" json:"url" yaml:"url"`
 	// DingdingQuery 机器人列表
 	DingdingQuery map[string]DingdingQueryConfig `mapstructure:"dingding-query" json:"dingding-query" yaml:"dingding-query"`
 }

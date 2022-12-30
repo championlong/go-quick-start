@@ -2,26 +2,32 @@ package dingding
 
 import (
 	"github.com/championlong/backend-common/dingding/config"
-	info "github.com/championlong/backend-common/dingding/message"
+	"github.com/championlong/backend-common/dingding/model"
 )
 
-var dingdingConfig *config.DingdingConfig
+const (
+	dingUrl = "https://oapi.dingtalk.com/robot/send"
+)
 
+var dingConfig *config.DingdingConfig
+
+// GetConfig 获取钉钉配置文件
 func GetConfig() *config.DingdingConfig {
-	return dingdingConfig
+	return dingConfig
 }
 
+// Init 初始化钉钉配置
 func Init(config config.DingdingConfig) {
-	dingdingConfig = &config
+	dingConfig = &config
 }
 
-func SendMessage(kindRobot string, messageType info.MsgType, message interface{}, at info.At) error {
-	job := new(info.DingdingMasterJob)
+// SendDingMessage 发送钉钉消息
+func SendDingMessage(kindRobot string, messageType MsgType, message interface{}, at model.At) error {
+	job := new(DingMasterJob)
 	job.KindRobot = kindRobot
-	job.Url = GetConfig().Url
+	job.Url = dingUrl
 	job.Msgtype = messageType
-	job.Query = GetConfig().DingdingQuery[kindRobot]
-	job.CommonMessage = message
+	job.Query = dingConfig.DingdingQuery[kindRobot]
 	job.At = at
-	return job.SendMessage()
+	return job.SendMessage(message)
 }

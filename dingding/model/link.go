@@ -1,4 +1,4 @@
-package message
+package model
 
 // LinkMessage link struct
 type LinkMessage struct {

@@ -1,4 +1,4 @@
-package message
+package model
 
 type FeedCardMessage struct {
 	Links []Links `json:"links"`
