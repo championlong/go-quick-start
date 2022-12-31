@@ -1,4 +1,3 @@
-
 # jwt configuration
 jwt:
   signing-key: 'qmPlus'
@@ -202,10 +201,9 @@ cors:
       allow-credentials: true # 布尔值
 
 dingding:
-  web-hook:
-    url: https://oapi.dingtalk.com/robot/send
-    dingding-query:
-      alert-robot:
-        is-keys-word: true
-        keys-word: 通知
-        access-token: 3434qeq11234
+  url: https://oapi.dingtalk.com/robot/send
+  dingding-query:
+    alert-robot:
+      is-keys-word: true
+      keys-word: 通知
+      access-token: 3434qeq11234

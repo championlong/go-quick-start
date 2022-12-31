@@ -1,7 +1,8 @@
 # backend-common
 > Go语言工程项目开发学习
 
-### GO开发脚手架
+## GO开发脚手架
+> 依据 [gin-vue-admin](https://github.com/flipped-aurora/gin-vue-admin) 删减出的WEB开发脚手架
 <div align=center>
 <img src="https://img.shields.io/badge/golang-1.16-blue"/>
 <img src="https://img.shields.io/badge/gin-1.7.0-lightBlue"/>
@@ -14,17 +15,8 @@
 * 配置文件：使用 fsnotify 和 viper 实现yaml格式的配置文件。
 * 日志：使用 zap 实现日志记录。
 
-
-### 钉钉机器人
-> 钉钉机器人配置发送模块化
-
-* 使用方式: go get github.com/championlong/backend-common/dingding
-* 支持类型: Text、Markdown
-
-### 相关技术Demo
+## 相关技术Demo
 * gRPC
 * Kafka
 * Redis
-
-### 设计模式(GO实现)
 

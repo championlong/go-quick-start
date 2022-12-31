@@ -1,6 +1,8 @@
 package config
 
-import "github.com/championlong/backend-common/dingding/model"
+import (
+	"github.com/championlong/backend-common/dingding/config"
+)
 
 type Server struct {
 	JWT     JWT     `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
@@ -27,7 +29,7 @@ type Server struct {
 	Excel Excel `mapstructure:"excel" json:"excel" yaml:"excel"`
 	Timer Timer `mapstructure:"timer" json:"timer" yaml:"timer"`
 
-	Dingding model.DingdingConfig `mapstructure:"dingding" json:"dingding" yaml:"dingding"`
+	Dingding config.DingdingConfig `mapstructure:"dingding" json:"dingding" yaml:"dingding"`
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 }
