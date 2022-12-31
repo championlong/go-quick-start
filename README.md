@@ -15,17 +15,8 @@
 * 配置文件：使用 fsnotify 和 viper 实现yaml格式的配置文件。
 * 日志：使用 zap 实现日志记录。
 
-
-## 钉钉机器人
-> 钉钉群组机器人配置发送模块
-
-* 使用方式: go get github.com/championlong/backend-common/dingding
-* 支持类型: Text、Markdown
-
 ## 相关技术Demo
 * gRPC
 * Kafka
 * Redis
-
-## 设计模式(GO实现)
 
