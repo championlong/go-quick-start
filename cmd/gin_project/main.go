@@ -4,7 +4,7 @@ import (
 	"github.com/championlong/backend-common/app/core"
 	"github.com/championlong/backend-common/app/global"
 	"github.com/championlong/backend-common/app/initialize"
-	"github.com/championlong/backend-common/dingding"
+	dingding "github.com/championlong/dingtalk-sdk"
 	"go.uber.org/zap"
 )
 

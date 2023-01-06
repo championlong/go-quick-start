@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/championlong/backend-common/dingding/config"
+	"github.com/championlong/dingtalk-dsk"
 )
 
 type Server struct {

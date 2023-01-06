@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-sdk-go v1.43.36
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/braintree/manners v0.0.0-20160418043613-82a8879fc5fd
-	github.com/championlong/backend-common/dingding v0.1.0
+	github.com/championlong/dingtalk-sdk v0.0.0-20221231065317-692972be0ad5 // indirect
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.7.7
@@ -20,7 +20,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/huaweicloud/huaweicloud-sdk-go-obs v3.21.12+incompatible
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
-	github.com/juju/ratelimit v1.0.1
+	github.com/juju/ratelimit v1.0.2
 	github.com/lib/pq v1.10.3 // indirect
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -47,5 +47,3 @@ require (
 	gorm.io/driver/postgres v1.3.4
 	gorm.io/gorm v1.23.4
 )
-
-replace github.com/championlong/backend-common/dingding => ./dingding
