@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-sdk-go v1.43.36
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/braintree/manners v0.0.0-20160418043613-82a8879fc5fd
-	github.com/championlong/dingtalk-sdk v0.0.0-20221231065317-692972be0ad5 // indirect
+	github.com/championlong/dingtalk-sdk v0.0.0-20221231065317-692972be0ad5
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.7.7

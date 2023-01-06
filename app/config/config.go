@@ -1,8 +1,6 @@
 package config
 
-import (
-	"github.com/championlong/dingtalk-dsk"
-)
+import "github.com/championlong/dingtalk-sdk/config"
 
 type Server struct {
 	JWT     JWT     `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
