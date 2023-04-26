@@ -8,7 +8,7 @@ jwt:
 zap:
   level: 'info'
   format: 'console'
-  prefix: '[backend-common]'
+  prefix: '[go-quick-start]'
   director: 'log'
   show-line: true
   encode-level: 'LowercaseColorLevelEncoder'
@@ -201,9 +201,7 @@ cors:
       allow-credentials: true # 布尔值
 
 dingding:
-  url: https://oapi.dingtalk.com/robot/send
-  dingding-query:
+  ding-platform:
     alert-robot:
-      is-keys-word: true
-      keys-word: 通知
+      encrypt: xxxx
       access-token: 3434qeq11234

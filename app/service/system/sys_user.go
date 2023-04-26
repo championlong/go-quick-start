@@ -3,11 +3,11 @@ package system
 import (
 	"errors"
 	"fmt"
-	"github.com/championlong/backend-common/app/model/system"
+	"github.com/championlong/go-quick-start/app/model/system"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/model/common/request"
-	"github.com/championlong/backend-common/app/utils"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/common/request"
+	"github.com/championlong/go-quick-start/app/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 )

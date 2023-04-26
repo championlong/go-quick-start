@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/championlong/backend-common/app/global"
-	systemReq "github.com/championlong/backend-common/app/model/system/request"
+	"github.com/championlong/go-quick-start/app/global"
+	systemReq "github.com/championlong/go-quick-start/app/model/system/request"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 )

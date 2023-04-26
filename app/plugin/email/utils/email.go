@@ -6,7 +6,7 @@ import (
 	"net/smtp"
 	"strings"
 
-	"github.com/championlong/backend-common/app/plugin/email/global"
+	"github.com/championlong/go-quick-start/app/plugin/email/global"
 
 	"github.com/jordan-wright/email"
 )

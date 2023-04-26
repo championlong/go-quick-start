@@ -10,10 +10,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/championlong/backend-common/app/utils"
+	"github.com/championlong/go-quick-start/app/utils"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/service"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

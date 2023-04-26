@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/championlong/backend-common/app/middleware"
-	"github.com/championlong/backend-common/app/plugin/email/api"
+	"github.com/championlong/go-quick-start/app/middleware"
+	"github.com/championlong/go-quick-start/app/plugin/email/api"
 	"github.com/gin-gonic/gin"
 )
 

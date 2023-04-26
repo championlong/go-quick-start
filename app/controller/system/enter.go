@@ -1,6 +1,6 @@
 package system
 
-import "github.com/championlong/backend-common/app/service"
+import "github.com/championlong/go-quick-start/app/service"
 
 type ApiGroup struct {
 	JwtApi

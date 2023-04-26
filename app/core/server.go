@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/initialize"
-	"github.com/championlong/backend-common/app/service/system"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/initialize"
+	"github.com/championlong/go-quick-start/app/service/system"
 	"go.uber.org/zap"
 )
 

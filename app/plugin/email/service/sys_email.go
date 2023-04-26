@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/championlong/backend-common/app/plugin/email/utils"
+	"github.com/championlong/go-quick-start/app/plugin/email/utils"
 )
 
 type EmailService struct{}

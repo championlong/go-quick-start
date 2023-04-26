@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/championlong/backend-common/app/recovery"
+	"github.com/championlong/go-quick-start/app/recovery"
 	"github.com/wvanbergen/kafka/consumergroup"
 	"golang.org/x/sync/semaphore"
 	"time"

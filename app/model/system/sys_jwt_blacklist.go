@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 )
 
 type JwtBlacklist struct {

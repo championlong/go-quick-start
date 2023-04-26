@@ -3,7 +3,7 @@ package request
 import (
 	"fmt"
 
-	"github.com/championlong/backend-common/app/config"
+	"github.com/championlong/go-quick-start/app/config"
 )
 
 type InitDB struct {

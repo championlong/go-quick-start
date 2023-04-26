@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/championlong/backend-common/app/constants"
-	"github.com/championlong/backend-common/dingding"
+	"github.com/championlong/go-quick-start/app/constants"
+	"github.com/championlong/go-quick-start/dingding"
 )
 
 func SendDingdingAlertError(content string) {

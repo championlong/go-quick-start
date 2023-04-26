@@ -3,9 +3,9 @@ package initialize
 import (
 	"net/http"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/middleware"
-	"github.com/championlong/backend-common/app/router"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/middleware"
+	"github.com/championlong/go-quick-start/app/router"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -46,7 +46,7 @@ func Routers() *gin.Engine {
 	PrivateGroup := Router.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
-		systemRouter.InitUserRouter(PrivateGroup)                // 注册用户路由
+		systemRouter.InitUserRouter(PrivateGroup) // 注册用户路由
 	}
 
 	InstallPlugin(PublicGroup, PrivateGroup) // 安装插件

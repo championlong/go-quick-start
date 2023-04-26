@@ -8,8 +8,8 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/model/common/response"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/common/response"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,8 +1,8 @@
 package system
 
 import (
-	v1 "github.com/championlong/backend-common/app/controller"
-	"github.com/championlong/backend-common/app/middleware"
+	v1 "github.com/championlong/go-quick-start/app/controller"
+	"github.com/championlong/go-quick-start/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 

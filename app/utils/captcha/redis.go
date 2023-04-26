@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"go.uber.org/zap"
 )
 

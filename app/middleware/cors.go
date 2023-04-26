@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/championlong/backend-common/app/config"
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/config"
+	"github.com/championlong/go-quick-start/app/global"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

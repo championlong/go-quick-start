@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"gorm.io/gorm/logger"
 )
 
