@@ -90,7 +90,7 @@ func (userService *UserService) GetUserInfoList(info request.PageInfo) (err erro
 //@param: uuid uuid.UUID, authorityId string
 //@return: err error
 
-func (userService *UserService) SetUserAuthority(id uint, uuid uuid.UUID, authorityId string) (err error) {
+func (userService *UserService) SetUserAuthority(id uint, uuid uuid.UUID, authorityId uint) (err error) {
 	err = global.GVA_DB.Where("uuid = ?", uuid).First(&system.SysUser{}).Update("authority_id", authorityId).Error
 	return err
 }

@@ -3,13 +3,12 @@ package system
 import "github.com/championlong/go-quick-start/app/service"
 
 type ApiGroup struct {
-	JwtApi
 	BaseApi
-	DBApi
+	ChatGptApi
 }
 
 var (
-	jwtService    = service.ServiceGroupApp.SystemServiceGroup.JwtService
-	userService   = service.ServiceGroupApp.SystemServiceGroup.UserService
-	initDBService = service.ServiceGroupApp.SystemServiceGroup.InitDBService
+	jwtService     = service.ServiceGroupApp.SystemServiceGroup.JwtService
+	userService    = service.ServiceGroupApp.SystemServiceGroup.UserService
+	chatGptService = service.ServiceGroupApp.SystemServiceGroup.ChatGptService
 )

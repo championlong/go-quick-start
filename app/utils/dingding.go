@@ -2,12 +2,16 @@ package utils
 
 import (
 	"github.com/championlong/go-quick-start/app/constants"
-	"github.com/championlong/go-quick-start/dingding"
+	"github.com/championlong/go-quick-start/app/global"
+	ding "github.com/championlong/robot-talk-sdk"
+	"github.com/championlong/robot-talk-sdk/model/ding_talk"
+	"github.com/championlong/robot-talk-sdk/platform"
+	"go.uber.org/zap"
 )
 
 func SendDingdingAlertError(content string) {
-	err := dingding.DingDingSend.GetConfigWebHookRobot(constants.ALERT_WEBHOOK_ROBOT).DingDingSendGroupText(content, nil, nil, false)
+	err := ding.SendDingMessage(constants.ALERT_WEBHOOK_ROBOT, platform.MsgTypeText, ding_talk.TextMessage{Content: content}, ding_talk.At{})
 	if err != nil {
-		Err("DingDingSend alert_robot is err:%s", err.Error())
+		global.GVA_LOG.Error("DingDingSend alert_robot is err!", zap.Error(err))
 	}
 }

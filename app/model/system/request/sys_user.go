@@ -6,7 +6,7 @@ type Register struct {
 	Password     string   `json:"passWord"`
 	NickName     string   `json:"nickName" gorm:"default:'QMPlusUser'"`
 	HeaderImg    string   `json:"headerImg" gorm:"default:'https://qmplusimg.henrongyi.top/gva_header.jpg'"`
-	AuthorityId  string   `json:"authorityId" gorm:"default:888"`
+	AuthorityId  uint     `json:"authorityId" gorm:"default:888"`
 	AuthorityIds []string `json:"authorityIds"`
 }
 
@@ -27,7 +27,7 @@ type ChangePasswordStruct struct {
 
 // Modify  user's auth structure
 type SetUserAuth struct {
-	AuthorityId string `json:"authorityId"` // 角色ID
+	AuthorityId uint `json:"authorityId"` // 角色ID
 }
 
 // Modify  user's auth structure
@@ -37,10 +37,10 @@ type SetUserAuthorities struct {
 }
 
 type ChangeUserInfo struct {
-	ID           uint                 `gorm:"primarykey"`                                                                           // 主键ID
-	NickName     string               `json:"nickName" gorm:"default:系统用户;comment:用户昵称"`                                            // 用户昵称
-	Phone        string               `json:"phone"  gorm:"comment:用户手机号"`                                                          // 用户角色ID
-	AuthorityIds []string             `json:"authorityIds" gorm:"-"`                                                                // 角色ID
-	Email        string               `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
-	HeaderImg    string               `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像
+	ID           uint     `gorm:"primarykey"`                                                                           // 主键ID
+	NickName     string   `json:"nickName" gorm:"default:系统用户;comment:用户昵称"`                                            // 用户昵称
+	Phone        string   `json:"phone"  gorm:"comment:用户手机号"`                                                          // 用户角色ID
+	AuthorityIds []string `json:"authorityIds" gorm:"-"`                                                                // 角色ID
+	Email        string   `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
+	HeaderImg    string   `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像
 }
