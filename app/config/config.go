@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/championlong/backend-common/dingding/config"
+	"github.com/championlong/robot-talk-sdk/config"
 )
 
 type Server struct {
@@ -29,7 +29,7 @@ type Server struct {
 	Excel Excel `mapstructure:"excel" json:"excel" yaml:"excel"`
 	Timer Timer `mapstructure:"timer" json:"timer" yaml:"timer"`
 
-	Dingding config.DingdingConfig `mapstructure:"dingding" json:"dingding" yaml:"dingding"`
+	Dingding config.PlatformConfig `mapstructure:"dingding" json:"dingding" yaml:"dingding"`
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
 }

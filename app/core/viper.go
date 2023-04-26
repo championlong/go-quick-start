@@ -9,8 +9,8 @@ import (
 
 	"github.com/songzhibin97/gkit/cache/local_cache"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/utils"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/utils"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"

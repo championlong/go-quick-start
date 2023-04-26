@@ -7,7 +7,7 @@ import (
 	"mime/multipart"
 	"time"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"github.com/qiniu/api.v7/v7/auth/qbox"
 	"github.com/qiniu/api.v7/v7/storage"
 	"go.uber.org/zap"

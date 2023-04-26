@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/championlong/backend-common/app/service/system"
+	"github.com/championlong/go-quick-start/app/service/system"
 )
 
 type ServiceGroup struct {
-	SystemServiceGroup   system.ServiceGroup
+	SystemServiceGroup system.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

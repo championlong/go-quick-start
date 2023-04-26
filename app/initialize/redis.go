@@ -3,7 +3,7 @@ package initialize
 import (
 	"context"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"

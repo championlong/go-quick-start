@@ -1,9 +1,9 @@
 package system
 
 import (
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/model/common/response"
-	"github.com/championlong/backend-common/app/model/system"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/common/response"
+	"github.com/championlong/go-quick-start/app/model/system"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

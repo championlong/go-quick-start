@@ -2,12 +2,12 @@ package system
 
 import (
 	"context"
-	"github.com/championlong/backend-common/app/model/system"
+	"github.com/championlong/go-quick-start/app/model/system"
 	"time"
 
 	"go.uber.org/zap"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 )
 
 type JwtService struct{}

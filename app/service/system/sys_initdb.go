@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/model/system"
-	"github.com/championlong/backend-common/app/model/system/request"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/system"
+	"github.com/championlong/go-quick-start/app/model/system/request"
 )
 
 type InitDBService struct{}

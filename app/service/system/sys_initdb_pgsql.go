@@ -3,13 +3,13 @@ package system
 import (
 	"path/filepath"
 
-	"github.com/championlong/backend-common/app/utils"
+	"github.com/championlong/go-quick-start/app/utils"
 
-	"github.com/championlong/backend-common/app/config"
-	"github.com/championlong/backend-common/app/dao/system"
-	"github.com/championlong/backend-common/app/global"
-	model "github.com/championlong/backend-common/app/model/system"
-	"github.com/championlong/backend-common/app/model/system/request"
+	"github.com/championlong/go-quick-start/app/config"
+	"github.com/championlong/go-quick-start/app/dao/system"
+	"github.com/championlong/go-quick-start/app/global"
+	model "github.com/championlong/go-quick-start/app/model/system"
+	"github.com/championlong/go-quick-start/app/model/system/request"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

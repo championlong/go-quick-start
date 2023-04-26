@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/championlong/backend-common/app/config"
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/initialize/internal"
+	"github.com/championlong/go-quick-start/app/config"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/initialize/internal"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

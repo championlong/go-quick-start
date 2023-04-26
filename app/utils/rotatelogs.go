@@ -3,7 +3,7 @@ package utils
 import (
 	"os"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap/zapcore"
 )

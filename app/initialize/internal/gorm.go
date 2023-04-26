@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/championlong/backend-common/app/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )

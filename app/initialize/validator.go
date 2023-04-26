@@ -1,6 +1,6 @@
 package initialize
 
-import "github.com/championlong/backend-common/app/utils"
+import "github.com/championlong/go-quick-start/app/utils"
 
 func init() {
 	_ = utils.RegisterRule("PageVerify",

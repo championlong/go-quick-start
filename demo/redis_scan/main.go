@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/initialize"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/initialize"
 	"github.com/go-redis/redis/v8"
 	juju_ratelimit "github.com/juju/ratelimit"
 	"time"
@@ -34,13 +34,13 @@ func dealDevice() {
 		var err error
 		delEncrypt := make([]*redis.IntCmd, 0)
 		roidUserLimiter.Wait(1)
-		keys, cursor, err = global.GVA_REDIS.Scan(context.Background(),cursor, "rud:*", 500).Result()
+		keys, cursor, err = global.GVA_REDIS.Scan(context.Background(), cursor, "rud:*", 500).Result()
 		if err != nil {
 			fmt.Println("scan error ", err.Error())
 		}
 		n += len(keys)
 		for index := range keys {
-			delEncrypt = append(delEncrypt, pipelineRta.Del(context.Background(),keys[index]))
+			delEncrypt = append(delEncrypt, pipelineRta.Del(context.Background(), keys[index]))
 		}
 		_, _ = pipelineRta.Exec(context.Background())
 		if cursor == 0 {

@@ -1,8 +1,8 @@
 package email
 
 import (
-	"github.com/championlong/backend-common/app/plugin/email/global"
-	"github.com/championlong/backend-common/app/plugin/email/router"
+	"github.com/championlong/go-quick-start/app/plugin/email/global"
+	"github.com/championlong/go-quick-start/app/plugin/email/router"
 	"github.com/gin-gonic/gin"
 )
 

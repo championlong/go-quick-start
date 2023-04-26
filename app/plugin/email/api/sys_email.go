@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/championlong/backend-common/app/global"
-	"github.com/championlong/backend-common/app/model/common/response"
-	email_response "github.com/championlong/backend-common/app/plugin/email/model/response"
-	"github.com/championlong/backend-common/app/plugin/email/service"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/common/response"
+	email_response "github.com/championlong/go-quick-start/app/plugin/email/model/response"
+	"github.com/championlong/go-quick-start/app/plugin/email/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
