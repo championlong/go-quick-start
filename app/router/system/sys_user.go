@@ -2,14 +2,13 @@ package system
 
 import (
 	v1 "github.com/championlong/go-quick-start/app/controller"
-	"github.com/championlong/go-quick-start/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type UserRouter struct{}
 
 func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
-	userRouter := Router.Group("user").Use(middleware.OperationRecord())
+	userRouter := Router.Group("user").Use()
 	userRouterWithoutRecord := Router.Group("user")
 	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
 	{
