@@ -46,7 +46,9 @@ func Routers() *gin.Engine {
 	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	//PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
-		systemRouter.InitUserRouter(PrivateGroup) // 注册用户路由
+		systemRouter.InitUserRouter(PrivateGroup)     // 注册用户路由
+		systemRouter.InitChatGptRouter(PrivateGroup)  // chatGpt接口
+		systemRouter.InitDingTalkRouter(PrivateGroup) // 钉钉相关接口
 	}
 
 	InstallPlugin(PublicGroup, PrivateGroup) // 安装插件

@@ -13,6 +13,12 @@ import (
 	"time"
 )
 
+/*
+配置订阅：https://open.dingtalk.com/document/org/configure-event-subcription
+获取AccessToken文档：https://open.dingtalk.com/document/orgapp-server/obtain-orgapp-token
+审批事件：https://open.dingtalk.com/document/orgapp-server/approval-events
+钉钉审批信息文档：https://open.dingtalk.com/document/isvapp-server/obtains-the-details-of-a-single-approval-instance
+*/
 var client = utils.HttpClient{}
 
 const (
@@ -34,7 +40,7 @@ func getDingAccessToken(ctx context.Context, redisKey string) (string, error) {
 	accessTokenUrl, err := url.ParseRequestURI(getAccessTokenUrl)
 	if err != nil {
 		global.GVA_LOG.Error("GetDingdingAccessToken illegal URI!", zap.Error(err))
-		return token, err
+		return "", err
 	}
 	params.Set("appkey", appKey)
 	params.Set("appsecret", appSecret)

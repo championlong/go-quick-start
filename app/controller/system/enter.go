@@ -5,6 +5,7 @@ import "github.com/championlong/go-quick-start/app/service"
 type ApiGroup struct {
 	BaseApi
 	ChatGptApi
+	DingRoles
 }
 
 var (
