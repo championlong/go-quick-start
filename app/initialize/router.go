@@ -36,13 +36,14 @@ func Routers() *gin.Engine {
 	global.GVA_LOG.Info("register swagger handler")
 	// 方便统一添加路由组前缀 多服务器上线使用
 
-	PublicGroup := Router.Group("")
+	PublicGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	{
 		// 健康监测
 		PublicGroup.GET("/health", func(c *gin.Context) {
 			c.JSON(200, "ok")
 		})
 	}
+	systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
 	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	//PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{

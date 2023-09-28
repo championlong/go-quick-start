@@ -39,7 +39,7 @@ casbin:
 system:
   env: 'public'  # Change to "develop" to skip authentication for development mode
   addr: 8888
-  db-type: 'mysql'
+  db-type: 'pgsql'
   oss-type: 'local'    # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
   use-redis: false     # 使用redis
   use-multipoint: false
@@ -54,9 +54,33 @@ captcha:
   key-long: 6
   img-width: 240
   img-height: 80
+  open-captcha: 0 # 0代表一直开启，大于0代表限制次数
+  open-captcha-timeout: 3600 # open-captcha大于0时才生效
 
-# mysql connect configuration
-# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看
+# pgsql connect configuration
+# 未初始化之前请勿手动修改数据库信息！！！
+pgsql:
+  path: '127.0.0.1'
+  port: '5432'
+  config: ''
+  db-name: 'quick-start'
+  username: 'mac'
+  password: '123456'
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
+oracle:
+  path: ""
+  port: ""
+  config: ""
+  db-name: ""
+  username: ""
+  password: ""
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
 mysql:
   path: ''
   port: ''
@@ -68,31 +92,27 @@ mysql:
   max-open-conns: 100
   log-mode: ""
   log-zap: false
-
-# pgsql connect configuration
-# 未初始化之前请勿手动修改数据库信息！！！
-pgsql:
-  path: ''
-  port: ''
-  config: ''
-  db-name: ''
-  username: ''
-  password: ''
+sqlite:
+  path: ""
+  port: ""
+  config: ""
+  db-name: ""
+  username: ""
+  password: ""
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""
   log-zap: false
-
 db-list:
-  - disabled: true # 是否启用
-    type: "" # 数据库的类型,目前支持mysql、pgsql
+  - disable: true # 是否禁用
+    type: "" # 数据库的类型,目前支持mysql、pgsql、mssql、oracle
     alias-name: "" # 数据库的名称,注意: alias-name 需要在db-list中唯一
-    path: ''
-    port: ''
-    config: ''
-    db-name: ''
-    username: ''
-    password: ''
+    path: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
     max-idle-conns: 10
     max-open-conns: 100
     log-mode: ""

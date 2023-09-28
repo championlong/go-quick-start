@@ -4,4 +4,5 @@ type RouterGroup struct {
 	UserRouter
 	ChatGptRouter
 	DingTalkRouter
+	BaseRouter
 }

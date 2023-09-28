@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"gorm.io/gorm/schema"
 	"log"
 	"os"
 	"time"
@@ -20,9 +21,15 @@ type _gorm struct{}
 
 // Config gorm 自定义配置
 // Author [SliverHorn](https://github.com/SliverHorn)
-func (g *_gorm) Config() *gorm.Config {
-	config := &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true}
-	_default := logger.New(NewWriter(log.New(os.Stdout, "\r\n", log.LstdFlags)), logger.Config{
+func (g *_gorm) Config(prefix string, singular bool) *gorm.Config {
+	config := &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			TablePrefix:   prefix,
+			SingularTable: singular,
+		},
+		DisableForeignKeyConstraintWhenMigrating: true,
+	}
+	_default := logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), logger.Config{
 		SlowThreshold: 200 * time.Millisecond,
 		LogLevel:      logger.Warn,
 		Colorful:      true,
@@ -31,10 +38,10 @@ func (g *_gorm) Config() *gorm.Config {
 	switch global.GVA_CONFIG.System.DbType {
 	case "mysql":
 		logMode = &global.GVA_CONFIG.Mysql
-		break
 	case "pgsql":
 		logMode = &global.GVA_CONFIG.Pgsql
-		break
+	case "oracle":
+		logMode = &global.GVA_CONFIG.Oracle
 	default:
 		logMode = &global.GVA_CONFIG.Mysql
 	}

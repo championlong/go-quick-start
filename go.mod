@@ -12,10 +12,12 @@ require (
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.7.7
+	github.com/glebarez/sqlite v1.9.0
 	github.com/go-redis/redis/v8 v8.11.5
+	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/golang/protobuf v1.5.2
-	github.com/google/uuid v1.1.2
+	github.com/google/uuid v1.3.0
 	github.com/gookit/color v1.5.0
 	github.com/gorilla/mux v1.8.0
 	github.com/huaweicloud/huaweicloud-sdk-go-obs v3.21.12+incompatible
@@ -28,7 +30,7 @@ require (
 	github.com/qiniu/api.v7/v7 v7.8.2
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/samuel/go-zookeeper v0.0.0-20201211165307-7117e9ea2414 // indirect
-	github.com/sashabaranov/go-openai v1.9.0 // indirect
+	github.com/sashabaranov/go-openai v1.9.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/songzhibin97/gkit v1.2.2
@@ -40,11 +42,12 @@ require (
 	github.com/wvanbergen/kafka v0.0.0-20171203153745-e2edea948ddf
 	github.com/wvanbergen/kazoo-go v0.0.0-20180202103751-f72d8611297a // indirect
 	go.uber.org/zap v1.21.0
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/grpc v1.45.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/driver/postgres v1.3.4
-	gorm.io/gorm v1.23.4
+	gorm.io/gorm v1.25.2
 )

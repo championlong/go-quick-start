@@ -45,7 +45,8 @@ func (userService *UserService) Login(u *system.SysUser) (err error, userInter *
 
 	var user system.SysUser
 	u.Password = utils.MD5V([]byte(u.Password))
-	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authorities").Preload("Authority").First(&user).Error
+	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Error
+	//err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authorities").Preload("Authority").First(&user).Error
 	if err == nil {
 
 	}
