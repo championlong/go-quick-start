@@ -4,21 +4,28 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"github.com/championlong/go-quick-start/app/global"
+	"github.com/championlong/go-quick-start/app/model/system"
+	"github.com/championlong/go-quick-start/app/utils"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 
-	"github.com/championlong/go-quick-start/app/utils"
-
-	"github.com/championlong/go-quick-start/app/global"
-	"github.com/championlong/go-quick-start/app/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
-var operationRecordService = service.ServiceGroupApp.SystemServiceGroup
+var respPool sync.Pool
+
+func init() {
+	respPool.New = func() interface{} {
+		return make([]byte, 1024)
+	}
+}
 
 func OperationRecord() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -26,11 +33,11 @@ func OperationRecord() gin.HandlerFunc {
 		var userId int
 		if c.Request.Method != http.MethodGet {
 			var err error
-			body, err = ioutil.ReadAll(c.Request.Body)
+			body, err = io.ReadAll(c.Request.Body)
 			if err != nil {
 				global.GVA_LOG.Error("read body from request error:", zap.Error(err))
 			} else {
-				c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+				c.Request.Body = io.NopCloser(bytes.NewBuffer(body))
 			}
 		} else {
 			query := c.Request.URL.RawQuery
@@ -46,8 +53,8 @@ func OperationRecord() gin.HandlerFunc {
 			body, _ = json.Marshal(&m)
 		}
 		claims, _ := utils.GetClaims(c)
-		if claims.ID != 0 {
-			userId = int(claims.ID)
+		if claims.BaseClaims.ID != 0 {
+			userId = int(claims.BaseClaims.ID)
 		} else {
 			id, err := strconv.Atoi(c.Request.Header.Get("x-user-id"))
 			if err != nil {
@@ -55,16 +62,60 @@ func OperationRecord() gin.HandlerFunc {
 			}
 			userId = id
 		}
-		fmt.Println(userId)
+		record := system.SysOperationRecord{
+			Ip:     c.ClientIP(),
+			Method: c.Request.Method,
+			Path:   c.Request.URL.Path,
+			Agent:  c.Request.UserAgent(),
+			Body:   string(body),
+			UserID: userId,
+		}
+
 		// 上传文件时候 中间件日志进行裁断操作
+		if strings.Contains(c.GetHeader("Content-Type"), "multipart/form-data") {
+			if len(record.Body) > 1024 {
+				// 截断
+				newBody := respPool.Get().([]byte)
+				copy(newBody, record.Body)
+				record.Body = string(newBody)
+				defer respPool.Put(newBody[:0])
+			}
+		}
+
 		writer := responseBodyWriter{
 			ResponseWriter: c.Writer,
 			body:           &bytes.Buffer{},
 		}
 		c.Writer = writer
+		now := time.Now()
 
 		c.Next()
 
+		latency := time.Since(now)
+		record.ErrorMessage = c.Errors.ByType(gin.ErrorTypePrivate).String()
+		record.Status = c.Writer.Status()
+		record.Latency = latency
+		record.Resp = writer.body.String()
+
+		if strings.Contains(c.Writer.Header().Get("Pragma"), "public") ||
+			strings.Contains(c.Writer.Header().Get("Expires"), "0") ||
+			strings.Contains(c.Writer.Header().Get("Cache-Control"), "must-revalidate, post-check=0, pre-check=0") ||
+			strings.Contains(c.Writer.Header().Get("Content-Type"), "application/force-download") ||
+			strings.Contains(c.Writer.Header().Get("Content-Type"), "application/octet-stream") ||
+			strings.Contains(c.Writer.Header().Get("Content-Type"), "application/vnd.ms-excel") ||
+			strings.Contains(c.Writer.Header().Get("Content-Type"), "application/download") ||
+			strings.Contains(c.Writer.Header().Get("Content-Disposition"), "attachment") ||
+			strings.Contains(c.Writer.Header().Get("Content-Transfer-Encoding"), "binary") {
+			if len(record.Resp) > 1024 {
+				// 截断
+				newBody := respPool.Get().([]byte)
+				copy(newBody, record.Resp)
+				record.Resp = string(newBody)
+				defer respPool.Put(newBody[:0])
+			}
+		}
+
+		fmt.Println(record)
 	}
 }
 

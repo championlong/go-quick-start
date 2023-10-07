@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/championlong/go-quick-start/app/global"
 	"go.uber.org/zap/zapcore"
 	"os"
 )

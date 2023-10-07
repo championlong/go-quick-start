@@ -2,9 +2,8 @@
 package system
 
 import (
+	"github.com/championlong/go-quick-start/app/global"
 	"time"
-
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
 // 如果含有time.Time 请自行import time包

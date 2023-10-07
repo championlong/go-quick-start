@@ -180,7 +180,8 @@ func (menuService *MenuService) AddMenuAuthority(menus []system.SysBaseMenu, aut
 	var auth system.SysAuthority
 	auth.AuthorityId = authorityId
 	auth.SysBaseMenus = menus
-	err = AuthorityServiceApp.SetMenuAuthority(&auth)
+	global.GVA_DB.Preload("SysBaseMenus").First(&auth, "authority_id = ?", auth.AuthorityId)
+	err = global.GVA_DB.Model(&auth).Association("SysBaseMenus").Replace(&auth.SysBaseMenus)
 	return err
 }
 
