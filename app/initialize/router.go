@@ -3,6 +3,7 @@ package initialize
 import (
 	"net/http"
 
+	"github.com/championlong/go-quick-start/app/docs"
 	"github.com/championlong/go-quick-start/app/global"
 	"github.com/championlong/go-quick-start/app/middleware"
 	"github.com/championlong/go-quick-start/app/router"
@@ -32,6 +33,7 @@ func Routers() *gin.Engine {
 	//Router.Use(middleware.Cors()) // 直接放行全部跨域请求
 	Router.Use(middleware.CorsByRules()) // 按照配置的规则放行跨域请求
 	global.GVA_LOG.Info("use middleware cors")
+	docs.SwaggerInfo.BasePath = global.GVA_CONFIG.System.RouterPrefix
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GVA_LOG.Info("register swagger handler")
 	// 方便统一添加路由组前缀 多服务器上线使用
