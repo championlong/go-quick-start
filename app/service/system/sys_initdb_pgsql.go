@@ -1,76 +1,94 @@
 package system
 
 import (
+	"context"
+	"errors"
+	"fmt"
+	"github.com/gookit/color"
 	"path/filepath"
 
 	"github.com/championlong/go-quick-start/app/utils"
 
 	"github.com/championlong/go-quick-start/app/config"
-	"github.com/championlong/go-quick-start/app/dao/system"
 	"github.com/championlong/go-quick-start/app/global"
-	model "github.com/championlong/go-quick-start/app/model/system"
 	"github.com/championlong/go-quick-start/app/model/system/request"
-	uuid "github.com/satori/go.uuid"
+	"github.com/gofrs/uuid/v5"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-// writePgsqlConfig pgsql 回写配置
-// Author [SliverHorn](https://github.com/SliverHorn)
-func (initDBService *InitDBService) writePgsqlConfig(pgsql config.Pgsql) error {
+type PgsqlInitHandler struct{}
+
+func NewPgsqlInitHandler() *PgsqlInitHandler {
+	return &PgsqlInitHandler{}
+}
+
+// WriteConfig pgsql 回写配置
+func (h PgsqlInitHandler) WriteConfig(ctx context.Context) error {
+	c, ok := ctx.Value("config").(config.Pgsql)
+	if !ok {
+		return errors.New("postgresql config invalid")
+	}
 	global.GVA_CONFIG.System.DbType = "pgsql"
-	global.GVA_CONFIG.Pgsql = pgsql
+	global.GVA_CONFIG.Pgsql = c
+	global.GVA_CONFIG.JWT.SigningKey = uuid.Must(uuid.NewV4()).String()
 	cs := utils.StructToMap(global.GVA_CONFIG)
 	for k, v := range cs {
 		global.GVA_VP.Set(k, v)
 	}
-	global.GVA_VP.Set("jwt.signing-key", uuid.NewV4().String())
 	return global.GVA_VP.WriteConfig()
 }
 
-func (initDBService *InitDBService) initPgsqlDB(conf request.InitDB) error {
-	dsn := conf.PgsqlEmptyDsn()
-	createSql := "CREATE DATABASE " + conf.DBName
-	if err := initDBService.createDatabase(dsn, "pgx", createSql); err != nil {
-		return err
-	} // 创建数据库
+// EnsureDB 创建数据库并初始化 pg
+func (h PgsqlInitHandler) EnsureDB(ctx context.Context, conf *request.InitDB) (next context.Context, err error) {
+	if s, ok := ctx.Value("dbtype").(string); !ok || s != "pgsql" {
+		return ctx, ErrDBTypeMismatch
+	}
 
-	pgsqlConfig := conf.ToPgsqlConfig()
-	if pgsqlConfig.Dbname == "" {
-		return nil
+	c := conf.ToPgsqlConfig()
+	next = context.WithValue(ctx, "config", c)
+	if c.Dbname == "" {
+		return ctx, nil
 	} // 如果没有数据库名, 则跳出初始化数据
 
-	if db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  pgsqlConfig.Dsn(), // DSN data source name
+	dsn := conf.PgsqlEmptyDsn()
+	createSql := fmt.Sprintf("CREATE DATABASE %s;", c.Dbname)
+	if err = createDatabase(dsn, "pgx", createSql); err != nil {
+		return nil, err
+	} // 创建数据库
+
+	var db *gorm.DB
+	if db, err = gorm.Open(postgres.New(postgres.Config{
+		DSN:                  c.Dsn(), // DSN data source name
 		PreferSimpleProtocol: false,
 	}), &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true}); err != nil {
-		return nil
-	} else {
-		global.GVA_DB = db
+		return ctx, err
 	}
-
-	if err := initDBService.initTables(); err != nil {
-		global.GVA_DB = nil
-		return err
-	}
-
-	if err := initDBService.initPgsqlData(); err != nil {
-		global.GVA_DB = nil
-		return err
-	}
-
-	if err := initDBService.writePgsqlConfig(pgsqlConfig); err != nil {
-		return err
-	}
-
 	global.GVA_CONFIG.AutoCode.Root, _ = filepath.Abs("..")
-	return nil
+	next = context.WithValue(next, "db", db)
+	return next, err
 }
 
-// initPgsqlData pgsql 初始化数据
-// Author [SliverHorn](https://github.com/SliverHorn)
-func (initDBService *InitDBService) initPgsqlData() error {
-	return model.PgsqlDataInitialize(
-		system.User,
-	)
+func (h PgsqlInitHandler) InitTables(ctx context.Context, inits initSlice) error {
+	return createTables(ctx, inits)
+}
+
+func (h PgsqlInitHandler) InitData(ctx context.Context, inits initSlice) error {
+	next, cancel := context.WithCancel(ctx)
+	defer func(c func()) { c() }(cancel)
+	for i := 0; i < len(inits); i++ {
+		if inits[i].DataInserted(next) {
+			color.Info.Printf(InitDataExist, Pgsql, inits[i].InitializerName())
+			continue
+		}
+		if n, err := inits[i].InitializeData(next); err != nil {
+			color.Info.Printf(InitDataFailed, Pgsql, inits[i].InitializerName(), err)
+			return err
+		} else {
+			next = n
+			color.Info.Printf(InitDataSuccess, Pgsql, inits[i].InitializerName())
+		}
+	}
+	color.Info.Printf(InitSuccess, Pgsql)
+	return nil
 }
