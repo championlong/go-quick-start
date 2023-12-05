@@ -215,19 +215,12 @@ func (self *HttpClient) Upload(requestUrl, fieldName, filePath string, params ma
 		}
 	}
 
-	request, err := http.NewRequest(http.MethodPost, requestUrl, buffer)
+	response, err := self.Post(requestUrl, writer.FormDataContentType(), buffer)
 	if err != nil {
 		return nil, err
 	}
 
-	request.Header.Set("Content-Type", writer.FormDataContentType())
-	resp, err := self.Client.Do(request)
-	if err != nil {
-		return nil, err
-	}
-	defer self.closeRespBody(requestUrl, resp)
-
-	return ioutil.ReadAll(resp.Body)
+	return response, err
 }
 
 func (self *HttpClient) SetHttpProxy(httpProxy string) {
