@@ -17,16 +17,8 @@ const (
 
 var (
 	zks = []string{
-		"10.30.102.60:2181",
+		"127.0.0.1:2181",
 	}
-
-	PREDICTS = map[string]string{
-		"free":   "busy",
-		"busy":   "free",
-		"closed": "free",
-	}
-
-	success, fail int32
 )
 
 type roomBookingKafkaConsumer struct {

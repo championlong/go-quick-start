@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/championlong/go-quick-start/app/core"
-	"github.com/championlong/go-quick-start/app/global"
-	"github.com/championlong/go-quick-start/app/initialize"
+	core2 "github.com/championlong/go-quick-start/internal/pkg/core"
+	"github.com/championlong/go-quick-start/internal/pkg/global"
+	initialize2 "github.com/championlong/go-quick-start/internal/pkg/initialize"
 	ding "github.com/championlong/robot-talk-sdk"
 	"go.uber.org/zap"
 )
@@ -21,18 +21,18 @@ import (
 // @name x-token
 // @BasePath /
 func main() {
-	global.GVA_VP = core.Viper() // 初始化Viper
-	global.GVA_LOG = core.Zap()  // 初始化zap日志库
+	global.GVA_VP = core2.Viper() // 初始化Viper
+	global.GVA_LOG = core2.Zap()  // 初始化zap日志库
 	zap.ReplaceGlobals(global.GVA_LOG)
 	ding.Init(global.GVA_CONFIG.Dingding)
-	global.GVA_DB = initialize.Gorm() // gorm连接数据库
-	initialize.Timer()
-	initialize.DBList()
+	global.GVA_DB = initialize2.Gorm() // gorm连接数据库
+	initialize2.Timer()
+	initialize2.DBList()
 	if global.GVA_DB != nil {
-		initialize.RegisterTables(global.GVA_DB) // 初始化表
+		initialize2.RegisterTables(global.GVA_DB) // 初始化表
 		// 程序结束前关闭数据库链接
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
 	}
-	core.RunWindowsServer()
+	core2.RunWindowsServer()
 }
