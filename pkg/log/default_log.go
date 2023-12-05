@@ -99,14 +99,9 @@ func Fatalw(msg string, keysAndValues ...interface{}) {
 
 func DebugSql(ctx string, t time.Time, sql string, v ...interface{}) {
 	sql = strings.ReplaceAll(sql, "%", "%%")
-	if ctx != "" {
-		sql = ctx + " SQL: " + sql
-	} else {
-		sql = "SQL: " + sql
-	}
+	fmt.Sprintf("%s SQL: %s", ctx, sql)
 	if len(v) >= 0 && len(v) < 50 {
 		for i, val := range v {
-
 			if val == nil || reflect.TypeOf(val).Kind() == reflect.String {
 				sql = strings.Replace(sql, "?", "'%v'", 1)
 			} else if reflect.TypeOf(val).Kind() == reflect.Slice {

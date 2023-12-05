@@ -17,6 +17,26 @@
 * 参考 [gin-vue-admin](https://github.com/flipped-aurora/gin-vue-admin) 功能精简出本项目开发脚手架
 * 参考 [project-layout](https://github.com/golang-standards/project-layout)结构化目录结构规范，对`gin-vue-admin`目录进行改造
 
+## 目录结构
+```
+.
+├── api             (API 接口定义文件)
+│   └── swagger
+├── cmd             (组件 main 函数)
+│   ├── gin_app
+├── configs         (配置文件)
+├── docs            (存放文档)
+├── internal        (私有应用和库代码)
+│   ├── app         (目录中存放真实的应用代码)
+│   └── pkg         (存放项目内可共享，项目外不共享的包)
+├── pkg             (可以被外部应用使用的代码库)
+│   ├── log
+│   ├── recovery
+│   └── utils
+├── scripts         (存放脚本文件)
+└── web             (前端代码存放目录)
+```
+
 ## 相关技术Demo
 * gRPC
 * Kafka

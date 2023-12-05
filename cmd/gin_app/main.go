@@ -24,6 +24,7 @@ import (
 func main() {
 	global.GVA_VP = core.Viper("configs/app_config.yaml", &global.GVA_CONFIG) // 初始化Viper
 	log.Init(&global.GVA_CONFIG.Zap)
+	defer log.Flush()
 	ding.Init(global.GVA_CONFIG.Dingding)
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
 	initialize.Timer()
