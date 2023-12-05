@@ -2,9 +2,8 @@ package request
 
 import (
 	"fmt"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"os"
-
-	"github.com/championlong/go-quick-start/internal/app/config"
 )
 
 type InitDB struct {
@@ -50,9 +49,9 @@ func (i *InitDB) SqliteEmptyDsn() string {
 
 // ToMysqlConfig 转换 config.Mysql
 // Author [SliverHorn](https://github.com/SliverHorn)
-func (i *InitDB) ToMysqlConfig() config.Mysql {
-	return config.Mysql{
-		GeneralDB: config.GeneralDB{
+func (i *InitDB) ToMysqlConfig() options.Mysql {
+	return options.Mysql{
+		GeneralDB: options.GeneralDB{
 			Path:         i.Host,
 			Port:         i.Port,
 			Dbname:       i.DBName,
@@ -68,9 +67,9 @@ func (i *InitDB) ToMysqlConfig() config.Mysql {
 
 // ToPgsqlConfig 转换 config.Pgsql
 // Author [SliverHorn](https://github.com/SliverHorn)
-func (i *InitDB) ToPgsqlConfig() config.Pgsql {
-	return config.Pgsql{
-		GeneralDB: config.GeneralDB{
+func (i *InitDB) ToPgsqlConfig() options.Pgsql {
+	return options.Pgsql{
+		GeneralDB: options.GeneralDB{
 			Path:         i.Host,
 			Port:         i.Port,
 			Dbname:       i.DBName,
@@ -86,9 +85,9 @@ func (i *InitDB) ToPgsqlConfig() config.Pgsql {
 
 // ToSqliteConfig 转换 config.Sqlite
 // Author [Kafumio](https://github.com/Kafumio)
-func (i *InitDB) ToSqliteConfig() config.Sqlite {
-	return config.Sqlite{
-		GeneralDB: config.GeneralDB{
+func (i *InitDB) ToSqliteConfig() options.Sqlite {
+	return options.Sqlite{
+		GeneralDB: options.GeneralDB{
 			Path:         i.DBPath,
 			Port:         i.Port,
 			Dbname:       i.DBName,

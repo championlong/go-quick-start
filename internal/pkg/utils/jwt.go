@@ -2,8 +2,8 @@ package utils
 
 import (
 	"errors"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"

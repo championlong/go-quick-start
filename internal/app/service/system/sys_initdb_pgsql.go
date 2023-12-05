@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/gookit/color"
 	"path/filepath"
 
-	"github.com/championlong/go-quick-start/internal/app/config"
 	"github.com/gofrs/uuid/v5"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -24,7 +24,7 @@ func NewPgsqlInitHandler() *PgsqlInitHandler {
 
 // WriteConfig pgsql 回写配置
 func (h PgsqlInitHandler) WriteConfig(ctx context.Context) error {
-	c, ok := ctx.Value("config").(config.Pgsql)
+	c, ok := ctx.Value("config").(options.Pgsql)
 	if !ok {
 		return errors.New("postgresql config invalid")
 	}

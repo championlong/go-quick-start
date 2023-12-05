@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize/internal"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -31,7 +31,7 @@ func GormPgSql() *gorm.DB {
 }
 
 // GormPgSqlByConfig 初始化 Postgresql 数据库 通过参数
-func GormPgSqlByConfig(p config.Pgsql) *gorm.DB {
+func GormPgSqlByConfig(p options.Pgsql) *gorm.DB {
 	if p.Dbname == "" {
 		return nil
 	}

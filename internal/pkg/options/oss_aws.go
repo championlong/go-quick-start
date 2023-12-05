@@ -1,4 +1,4 @@
-package config
+package options
 
 type AwsS3 struct {
 	Bucket           string `mapstructure:"bucket" json:"bucket" yaml:"bucket"`

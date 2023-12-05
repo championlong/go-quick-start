@@ -1,4 +1,4 @@
-package config
+package options
 
 type Pgsql struct {
 	GeneralDB `yaml:",inline" mapstructure:",squash"`

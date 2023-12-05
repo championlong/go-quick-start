@@ -1,4 +1,4 @@
-package config
+package options
 
 type CORS struct {
 	Mode      string          `mapstructure:"mode" json:"mode" yaml:"mode"`

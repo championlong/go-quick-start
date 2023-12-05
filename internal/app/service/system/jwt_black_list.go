@@ -2,8 +2,9 @@ package system
 
 import (
 	"context"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"time"
 
 	"go.uber.org/zap"
@@ -68,7 +69,7 @@ func LoadAll() {
 	var data []string
 	err := global.GVA_DB.Model(&system.JwtBlacklist{}).Select("jwt").Find(&data).Error
 	if err != nil {
-		global.GVA_LOG.Error("加载数据库jwt黑名单失败!", zap.Error(err))
+		log.Error("加载数据库jwt黑名单失败!", zap.Error(err))
 		return
 	}
 	for i := 0; i < len(data); i++ {

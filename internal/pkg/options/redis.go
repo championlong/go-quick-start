@@ -1,4 +1,4 @@
-package config
+package options
 
 type Redis struct {
 	DB       int    `mapstructure:"db" json:"db" yaml:"db"`                   // redis的哪个数据库

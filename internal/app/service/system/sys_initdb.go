@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"gorm.io/gorm"
 	"sort"
 )

@@ -2,10 +2,11 @@ package app
 
 import (
 	"github.com/championlong/go-quick-start/api/swagger/docs"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/router"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
 	"github.com/championlong/go-quick-start/internal/pkg/middleware"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -29,14 +30,14 @@ func Routers() *gin.Engine {
 
 	Router.StaticFS(global.GVA_CONFIG.Local.Path, http.Dir(global.GVA_CONFIG.Local.Path)) // 为用户头像和文件提供静态地址
 	// Router.Use(middleware.LoadTls())  // 如果需要使用https 请打开此中间件 然后前往 core/server.go 将启动模式 更变为 Router.RunTLS("端口","你的cre/pem文件","你的key文件")
-	global.GVA_LOG.Info("use middleware logger")
+	log.Info("use middleware logger")
 	// 跨域，如需跨域可以打开下面的注释
 	//Router.Use(middleware.Cors()) // 直接放行全部跨域请求
 	Router.Use(middleware.CorsByRules()) // 按照配置的规则放行跨域请求
-	global.GVA_LOG.Info("use middleware cors")
+	log.Info("use middleware cors")
 	docs.SwaggerInfo.BasePath = global.GVA_CONFIG.System.RouterPrefix
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	global.GVA_LOG.Info("register swagger handler")
+	log.Info("register swagger handler")
 	// 方便统一添加路由组前缀 多服务器上线使用
 
 	PublicGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
@@ -57,6 +58,6 @@ func Routers() *gin.Engine {
 
 	initialize.InstallPlugin(PublicGroup, PrivateGroup) // 安装插件
 
-	global.GVA_LOG.Info("router register success")
+	log.Info("router register success")
 	return Router
 }

@@ -1,4 +1,4 @@
-package config
+package options
 
 type Timer struct {
 	Start  bool     `mapstructure:"start" json:"start" yaml:"start"` // 是否启用

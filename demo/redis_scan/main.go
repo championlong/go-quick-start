@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
 	"github.com/go-redis/redis/v8"
 	juju_ratelimit "github.com/juju/ratelimit"

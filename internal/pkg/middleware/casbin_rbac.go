@@ -1,9 +1,9 @@
 package middleware
 
 import (
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
 	"github.com/championlong/go-quick-start/internal/app/service"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/gin-gonic/gin"
 )
 

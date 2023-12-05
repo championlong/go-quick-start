@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize/internal"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
@@ -26,7 +26,7 @@ func GormSqlite() *gorm.DB {
 }
 
 // GormSqliteByConfig 初始化Sqlite数据库用过传入配置
-func GormSqliteByConfig(s config.Sqlite) *gorm.DB {
+func GormSqliteByConfig(s options.Sqlite) *gorm.DB {
 	if s.Dbname == "" {
 		return nil
 	}

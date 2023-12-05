@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/pkg/constants"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"go.uber.org/zap"
 	"net/url"
 	"time"
@@ -39,7 +40,7 @@ func getDingAccessToken(ctx context.Context, redisKey string) (string, error) {
 	params := url.Values{}
 	accessTokenUrl, err := url.ParseRequestURI(getAccessTokenUrl)
 	if err != nil {
-		global.GVA_LOG.Error("GetDingdingAccessToken illegal URI!", zap.Error(err))
+		log.Error("GetDingdingAccessToken illegal URI!", zap.Error(err))
 		return "", err
 	}
 	params.Set("appkey", appKey)
@@ -59,7 +60,7 @@ func getDingAccessToken(ctx context.Context, redisKey string) (string, error) {
 	if accessTokenResponse.AccessToken != "" {
 		err = global.GVA_REDIS.Set(ctx, redisKey, accessTokenResponse.AccessToken, time.Minute*90).Err()
 		if err != nil {
-			global.GVA_LOG.Error("GetDingdingAccessToken set redis fail", zap.Error(err))
+			log.Error("GetDingdingAccessToken set redis fail", zap.Error(err))
 		}
 		//redis存储失败不影响正常返回值
 		return accessTokenResponse.AccessToken, nil

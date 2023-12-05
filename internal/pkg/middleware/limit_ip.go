@@ -3,8 +3,9 @@ package middleware
 import (
 	"context"
 	"errors"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"net/http"
 	"time"
 
@@ -47,7 +48,7 @@ func DefaultCheckOrMark(key string, expire int, limit int) (err error) {
 		return err
 	}
 	if err = SetLimitWithTime(key, limit, time.Duration(expire)*time.Second); err != nil {
-		global.GVA_LOG.Error("limit", zap.Error(err))
+		log.Error("limit", zap.Error(err))
 	}
 	return err
 }

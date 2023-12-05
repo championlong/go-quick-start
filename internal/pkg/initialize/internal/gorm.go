@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"gorm.io/gorm/schema"
 	"log"
 	"os"

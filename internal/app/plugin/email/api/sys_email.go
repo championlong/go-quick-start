@@ -4,7 +4,7 @@ import (
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
 	email_response "github.com/championlong/go-quick-start/internal/app/plugin/email/model/response"
 	"github.com/championlong/go-quick-start/internal/app/plugin/email/service"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -19,7 +19,7 @@ type EmailApi struct{}
 //	@Router		/email/emailTest [post]
 func (s *EmailApi) EmailTest(c *gin.Context) {
 	if err := service.ServiceGroupApp.EmailTest(); err != nil {
-		global.GVA_LOG.Error("发送失败!", zap.Error(err))
+		log.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)
 	} else {
 		response.OkWithData("发送成功", c)
@@ -37,7 +37,7 @@ func (s *EmailApi) SendEmail(c *gin.Context) {
 	var email email_response.Email
 	_ = c.ShouldBindJSON(&email)
 	if err := service.ServiceGroupApp.SendEmail(email.To, email.Subject, email.Body); err != nil {
-		global.GVA_LOG.Error("发送失败!", zap.Error(err))
+		log.Error("发送失败!", zap.Error(err))
 		response.FailWithMessage("发送失败", c)
 	} else {
 		response.OkWithData("发送成功", c)

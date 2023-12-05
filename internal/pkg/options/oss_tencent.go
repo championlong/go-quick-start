@@ -1,4 +1,4 @@
-package config
+package options
 
 type TencentCOS struct {
 	Bucket     string `mapstructure:"bucket" json:"bucket" yaml:"bucket"`

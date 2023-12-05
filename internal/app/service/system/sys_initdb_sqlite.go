@@ -3,9 +3,9 @@ package system
 import (
 	"context"
 	"errors"
-	"github.com/championlong/go-quick-start/internal/app/config"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/glebarez/sqlite"
 	"github.com/gofrs/uuid/v5"
@@ -22,7 +22,7 @@ func NewSqliteInitHandler() *SqliteInitHandler {
 
 // WriteConfig mysql回写配置
 func (h SqliteInitHandler) WriteConfig(ctx context.Context) error {
-	c, ok := ctx.Value("config").(config.Sqlite)
+	c, ok := ctx.Value("config").(options.Sqlite)
 	if !ok {
 		return errors.New("mysql config invalid")
 	}

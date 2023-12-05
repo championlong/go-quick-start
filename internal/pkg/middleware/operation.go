@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/championlong/go-quick-start/internal/app/service"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -27,7 +27,7 @@ func OperationRecord() gin.HandlerFunc {
 			var err error
 			body, err = ioutil.ReadAll(c.Request.Body)
 			if err != nil {
-				global.GVA_LOG.Error("read body from request error:", zap.Error(err))
+				log.Error("read body from request error:", zap.Error(err))
 			} else {
 				c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 			}

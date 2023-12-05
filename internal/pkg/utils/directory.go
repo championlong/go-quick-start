@@ -2,7 +2,7 @@ package utils
 
 import (
 	"errors"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"os"
 
 	"go.uber.org/zap"
@@ -41,9 +41,9 @@ func CreateDir(dirs ...string) (err error) {
 			return err
 		}
 		if !exist {
-			global.GVA_LOG.Debug("create directory" + v)
+			log.Debug("create directory" + v)
 			if err := os.MkdirAll(v, os.ModePerm); err != nil {
-				global.GVA_LOG.Error("create directory"+v, zap.Any(" error:", err))
+				log.Error("create directory"+v, zap.Any(" error:", err))
 				return err
 			}
 		}

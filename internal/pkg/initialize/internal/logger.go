@@ -2,8 +2,8 @@ package internal
 
 import (
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
-
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"gorm.io/gorm/logger"
 )
 
@@ -28,7 +28,7 @@ func (w *writer) Printf(message string, data ...interface{}) {
 		logZap = global.GVA_CONFIG.Pgsql.LogZap
 	}
 	if logZap {
-		global.GVA_LOG.Info(fmt.Sprintf(message+"\n", data...))
+		log.Info(fmt.Sprintf(message+"\n", data...))
 	} else {
 		w.Writer.Printf(message, data...)
 	}

@@ -1,4 +1,4 @@
-package config
+package options
 
 type DsnProvider interface {
 	Dsn() string

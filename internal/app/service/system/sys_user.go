@@ -3,9 +3,9 @@ package system
 import (
 	"errors"
 	"fmt"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/request"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"

@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize/internal"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -33,7 +33,7 @@ func GormMysql() *gorm.DB {
 }
 
 // GormMysqlByConfig 初始化Mysql数据库用过传入配置
-func GormMysqlByConfig(m config.Mysql) *gorm.DB {
+func GormMysqlByConfig(m options.Mysql) *gorm.DB {
 	if m.Dbname == "" {
 		return nil
 	}

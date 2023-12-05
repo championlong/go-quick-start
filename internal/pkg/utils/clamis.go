@@ -2,7 +2,7 @@ package utils
 
 import (
 	systemReq "github.com/championlong/go-quick-start/internal/app/model/system/request"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 )
@@ -12,7 +12,7 @@ func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
 	j := NewJWT()
 	claims, err := j.ParseToken(token)
 	if err != nil {
-		global.GVA_LOG.Error("从Gin的Context中获取从jwt解析信息失败, 请检查请求头是否存在x-token且claims是否为规定结构")
+		log.Error("从Gin的Context中获取从jwt解析信息失败, 请检查请求头是否存在x-token且claims是否为规定结构")
 	}
 	return claims, err
 }

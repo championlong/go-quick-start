@@ -1,4 +1,4 @@
-package config
+package options
 
 type AliyunOSS struct {
 	Endpoint        string `mapstructure:"endpoint" json:"endpoint" yaml:"endpoint"`

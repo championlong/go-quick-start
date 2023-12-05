@@ -1,4 +1,4 @@
-package config
+package options
 
 type Oracle struct {
 	GeneralDB `yaml:",inline" mapstructure:",squash"`

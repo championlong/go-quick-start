@@ -3,7 +3,7 @@ package upload
 import (
 	"errors"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"mime/multipart"
 	"time"
 
@@ -32,7 +32,7 @@ func (*AwsS3) UploadFile(file *multipart.FileHeader) (string, string, error) {
 	filename := global.GVA_CONFIG.AwsS3.PathPrefix + "/" + fileKey
 	f, openError := file.Open()
 	if openError != nil {
-		global.GVA_LOG.Error("function file.Open() Filed", zap.Any("err", openError.Error()))
+		log.Error("function file.Open() Filed", zap.Any("err", openError.Error()))
 		return "", "", errors.New("function file.Open() Filed, err:" + openError.Error())
 	}
 	defer f.Close() // 创建文件 defer 关闭
@@ -43,7 +43,7 @@ func (*AwsS3) UploadFile(file *multipart.FileHeader) (string, string, error) {
 		Body:   f,
 	})
 	if err != nil {
-		global.GVA_LOG.Error("function uploader.Upload() Filed", zap.Any("err", err.Error()))
+		log.Error("function uploader.Upload() Filed", zap.Any("err", err.Error()))
 		return "", "", err
 	}
 
@@ -68,7 +68,7 @@ func (*AwsS3) DeleteFile(key string) error {
 		Key:    aws.String(filename),
 	})
 	if err != nil {
-		global.GVA_LOG.Error("function svc.DeleteObject() Filed", zap.Any("err", err.Error()))
+		log.Error("function svc.DeleteObject() Filed", zap.Any("err", err.Error()))
 		return errors.New("function svc.DeleteObject() Filed, err:" + err.Error())
 	}
 

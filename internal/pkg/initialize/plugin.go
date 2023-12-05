@@ -1,8 +1,8 @@
 package initialize
 
 import (
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/plugin/email"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/utils/plugin"
 	"github.com/gin-gonic/gin"
 )

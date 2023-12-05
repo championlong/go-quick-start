@@ -1,4 +1,4 @@
-package config
+package options
 
 type Qiniu struct {
 	Zone          string `mapstructure:"zone" json:"zone" yaml:"zone"`                                  // 存储区域

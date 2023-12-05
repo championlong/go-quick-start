@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"gorm.io/gorm"
 )
 
@@ -16,11 +16,11 @@ func DBList() {
 		}
 		switch info.Type {
 		case "mysql":
-			dbMap[info.AliasName] = GormMysqlByConfig(config.Mysql{GeneralDB: info.GeneralDB})
+			dbMap[info.AliasName] = GormMysqlByConfig(options.Mysql{GeneralDB: info.GeneralDB})
 		case "pgsql":
-			dbMap[info.AliasName] = GormPgSqlByConfig(config.Pgsql{GeneralDB: info.GeneralDB})
+			dbMap[info.AliasName] = GormPgSqlByConfig(options.Pgsql{GeneralDB: info.GeneralDB})
 		case "oracle":
-			dbMap[info.AliasName] = GormOracleByConfig(config.Oracle{GeneralDB: info.GeneralDB})
+			dbMap[info.AliasName] = GormOracleByConfig(options.Oracle{GeneralDB: info.GeneralDB})
 		default:
 			continue
 		}

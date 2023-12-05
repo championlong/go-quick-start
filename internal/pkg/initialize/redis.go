@@ -2,8 +2,8 @@ package initialize
 
 import (
 	"context"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
-
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
 )
@@ -17,9 +17,9 @@ func Redis() {
 	})
 	pong, err := client.Ping(context.Background()).Result()
 	if err != nil {
-		global.GVA_LOG.Error("redis connect ping failed, err:", zap.Error(err))
+		log.Error("redis connect ping failed, err:", zap.Error(err))
 	} else {
-		global.GVA_LOG.Info("redis connect ping response:", zap.String("pong", pong))
+		log.Info("redis connect ping response:", zap.String("pong", pong))
 		global.GVA_REDIS = client
 	}
 }

@@ -1,4 +1,4 @@
-package config
+package options
 
 type Mysql struct {
 	GeneralDB `yaml:",inline" mapstructure:",squash"`

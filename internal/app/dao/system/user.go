@@ -1,8 +1,8 @@
 package system
 
 import (
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"

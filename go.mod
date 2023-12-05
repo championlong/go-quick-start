@@ -9,6 +9,7 @@ require (
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/braintree/manners v0.0.0-20160418043613-82a8879fc5fd
 	github.com/championlong/robot-talk-sdk v1.0.1
+	github.com/fatih/color v1.13.0
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.7.7
@@ -34,6 +35,8 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/songzhibin97/gkit v1.2.2
+	github.com/spf13/cobra v1.8.0
+	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/gin-swagger v1.4.1

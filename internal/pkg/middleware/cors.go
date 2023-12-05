@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -62,7 +62,7 @@ func CorsByRules() gin.HandlerFunc {
 	}
 }
 
-func checkCors(currentOrigin string) *config.CORSWhitelist {
+func checkCors(currentOrigin string) *options.CORSWhitelist {
 	for _, whitelist := range global.GVA_CONFIG.Cors.Whitelist {
 		// 遍历配置中的跨域头，寻找匹配项
 		if currentOrigin == whitelist.AllowOrigin {

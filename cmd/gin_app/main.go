@@ -1,11 +1,12 @@
 package main
 
 import (
+	"github.com/championlong/go-quick-start/internal/app"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/core"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
+	"github.com/championlong/go-quick-start/pkg/log"
 	ding "github.com/championlong/robot-talk-sdk"
-	"go.uber.org/zap"
 )
 
 //go:generate go env -w GO111MODULE=on
@@ -21,9 +22,8 @@ import (
 //	@name						x-token
 //	@BasePath					/
 func main() {
-	global.GVA_VP = core.Viper("configs/app_config.yaml") // 初始化Viper
-	global.GVA_LOG = core.Zap()                           // 初始化zap日志库
-	zap.ReplaceGlobals(global.GVA_LOG)
+	global.GVA_VP = core.Viper("configs/app_config.yaml", &global.GVA_CONFIG) // 初始化Viper
+	log.Init(&global.GVA_CONFIG.Zap)
 	ding.Init(global.GVA_CONFIG.Dingding)
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
 	initialize.Timer()
@@ -34,5 +34,5 @@ func main() {
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
 	}
-	core.RunWindowsServer()
+	app.NewApp("api").Run()
 }

@@ -1,4 +1,4 @@
-package config
+package options
 
 type Email struct {
 	To       string `mapstructure:"to" json:"to" yaml:"to"`                   // 收件人:多个以英文逗号分隔

@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -21,7 +21,7 @@ func (*TencentCOS) UploadFile(file *multipart.FileHeader) (string, string, error
 	client := NewClient()
 	f, openError := file.Open()
 	if openError != nil {
-		global.GVA_LOG.Error("function file.Open() Filed", zap.Any("err", openError.Error()))
+		log.Error("function file.Open() Filed", zap.Any("err", openError.Error()))
 		return "", "", errors.New("function file.Open() Filed, err:" + openError.Error())
 	}
 	defer f.Close() // 创建文件 defer 关闭
@@ -40,7 +40,7 @@ func (*TencentCOS) DeleteFile(key string) error {
 	name := global.GVA_CONFIG.TencentCOS.PathPrefix + "/" + key
 	_, err := client.Object.Delete(context.Background(), name)
 	if err != nil {
-		global.GVA_LOG.Error("function bucketManager.Delete() Filed", zap.Any("err", err.Error()))
+		log.Error("function bucketManager.Delete() Filed", zap.Any("err", err.Error()))
 		return errors.New("function bucketManager.Delete() Filed, err:" + err.Error())
 	}
 	return nil

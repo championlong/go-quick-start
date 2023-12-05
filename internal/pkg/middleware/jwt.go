@@ -1,11 +1,12 @@
 package middleware
 
 import (
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/app/service"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
+	"github.com/championlong/go-quick-start/pkg/log"
 	"strconv"
 	"time"
 
@@ -57,7 +58,7 @@ func JWTAuth() gin.HandlerFunc {
 			if global.GVA_CONFIG.System.UseMultipoint {
 				err, RedisJwtToken := jwtService.GetRedisJWT(newClaims.Username)
 				if err != nil {
-					global.GVA_LOG.Error("get redis jwt failed", zap.Error(err))
+					log.Error("get redis jwt failed", zap.Error(err))
 				} else { // 当之前的取成功时才进行拉黑操作
 					_ = jwtService.JsonInBlacklist(system.JwtBlacklist{Jwt: RedisJwtToken})
 				}

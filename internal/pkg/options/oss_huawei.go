@@ -1,4 +1,4 @@
-package config
+package options
 
 type HuaWeiObs struct {
 	Path      string `mapstructure:"path" json:"path" yaml:"path"`

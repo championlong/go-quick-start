@@ -1,9 +1,10 @@
 package initialize
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/config"
-	"github.com/championlong/go-quick-start/internal/pkg/global"
+	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize/internal"
+	"github.com/championlong/go-quick-start/internal/pkg/options"
+
 	//_ "github.com/godror/godror"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -31,7 +32,7 @@ func GormOracle() *gorm.DB {
 }
 
 // GormOracleByConfig 初始化Oracle数据库用过传入配置
-func GormOracleByConfig(m config.Oracle) *gorm.DB {
+func GormOracleByConfig(m options.Oracle) *gorm.DB {
 	if m.Dbname == "" {
 		return nil
 	}
