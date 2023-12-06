@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path/filepath"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/gookit/color"
-	"path/filepath"
 
 	"github.com/gofrs/uuid/v5"
 	"gorm.io/driver/mysql"
@@ -22,7 +23,7 @@ func NewMysqlInitHandler() *MysqlInitHandler {
 	return &MysqlInitHandler{}
 }
 
-// WriteConfig mysql回写配置
+// WriteConfig mysql回写配置.
 func (h MysqlInitHandler) WriteConfig(ctx context.Context) error {
 	c, ok := ctx.Value("config").(options.Mysql)
 	if !ok {
@@ -38,7 +39,7 @@ func (h MysqlInitHandler) WriteConfig(ctx context.Context) error {
 	return global.GVA_VP.WriteConfig()
 }
 
-// EnsureDB 创建数据库并初始化 mysql
+// EnsureDB 创建数据库并初始化 mysql.
 func (h MysqlInitHandler) EnsureDB(ctx context.Context, conf *request.InitDB) (next context.Context, err error) {
 	if s, ok := ctx.Value("dbtype").(string); !ok || s != "mysql" {
 		return ctx, ErrDBTypeMismatch
@@ -51,7 +52,10 @@ func (h MysqlInitHandler) EnsureDB(ctx context.Context, conf *request.InitDB) (n
 	} // 如果没有数据库名, 则跳出初始化数据
 
 	dsn := conf.MysqlEmptyDsn()
-	createSql := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;", c.Dbname)
+	createSql := fmt.Sprintf(
+		"CREATE DATABASE IF NOT EXISTS `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;",
+		c.Dbname,
+	)
 	if err = createDatabase(dsn, "mysql", createSql); err != nil {
 		return nil, err
 	} // 创建数据库

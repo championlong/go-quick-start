@@ -3,6 +3,8 @@ package system
 import (
 	"context"
 	"errors"
+	"path/filepath"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	"github.com/championlong/go-quick-start/internal/pkg/options"
@@ -11,7 +13,6 @@ import (
 	"github.com/gofrs/uuid/v5"
 	"github.com/gookit/color"
 	"gorm.io/gorm"
-	"path/filepath"
 )
 
 type SqliteInitHandler struct{}
@@ -20,7 +21,7 @@ func NewSqliteInitHandler() *SqliteInitHandler {
 	return &SqliteInitHandler{}
 }
 
-// WriteConfig mysql回写配置
+// WriteConfig mysql回写配置.
 func (h SqliteInitHandler) WriteConfig(ctx context.Context) error {
 	c, ok := ctx.Value("config").(options.Sqlite)
 	if !ok {
@@ -36,7 +37,7 @@ func (h SqliteInitHandler) WriteConfig(ctx context.Context) error {
 	return global.GVA_VP.WriteConfig()
 }
 
-// EnsureDB 创建数据库并初始化 sqlite
+// EnsureDB 创建数据库并初始化 sqlite.
 func (h SqliteInitHandler) EnsureDB(ctx context.Context, conf *request.InitDB) (next context.Context, err error) {
 	if s, ok := ctx.Value("dbtype").(string); !ok || s != "sqlite" {
 		return ctx, ErrDBTypeMismatch

@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	"github.com/sashabaranov/go-openai"
 	"gorm.io/gorm"
-	"strings"
 )
 
 type ChatGptService struct{}
@@ -38,7 +39,9 @@ func (chat *ChatGptService) DeleteSK() error {
 	return global.GVA_DB.Delete(option, "sk = ?", option.SK).Error
 }
 
-func (chat *ChatGptService) GetTable(req request.ChatGptRequest) (sql string, results []map[string]interface{}, err error) {
+func (chat *ChatGptService) GetTable(
+	req request.ChatGptRequest,
+) (sql string, results []map[string]interface{}, err error) {
 	if req.DBName == "" {
 		return "", nil, errors.New("未选择db")
 	}
@@ -46,7 +49,7 @@ func (chat *ChatGptService) GetTable(req request.ChatGptRequest) (sql string, re
 	var tableName string
 	global.GVA_DB.Table("information_schema.columns").Where("TABLE_SCHEMA = ?", req.DBName).Scan(&tablesInfo)
 
-	var tablesMap = make(map[string]bool)
+	tablesMap := make(map[string]bool)
 	for i := range tablesInfo {
 		tablesMap[tablesInfo[i].TABLE_NAME] = true
 	}
@@ -78,7 +81,7 @@ func (chat *ChatGptService) GetTable(req request.ChatGptRequest) (sql string, re
 }
 
 func getTables(ctx context.Context, client *openai.Client, tables string, chat string) (string, error) {
-	var tablePrompt = `You are a database administrator
+	tablePrompt := `You are a database administrator
 
 Filter out the table names you might need from the tables I provided formatted as:
 
@@ -115,8 +118,14 @@ The problem is:
 	return resp.Choices[0].Message.Content, nil
 }
 
-func getSql(ctx context.Context, client *openai.Client, tables []string, ChatField []system.ChatField, chat string) (string, error) {
-	var sqlPrompt = `You are a database administrator
+func getSql(
+	ctx context.Context,
+	client *openai.Client,
+	tables []string,
+	ChatField []system.ChatField,
+	chat string,
+) (string, error) {
+	sqlPrompt := `You are a database administrator
 
 Give me an SQL statement based on my question
 
@@ -137,7 +146,12 @@ The problem is:
 	for ii := range ChatField {
 		for i := range tables {
 			if strings.Index(tables[i], ChatField[ii].TABLE_NAME) > -1 {
-				configured += fmt.Sprintf("%s | %s | %s \n", ChatField[ii].TABLE_NAME, ChatField[ii].COLUMN_NAME, ChatField[ii].COLUMN_COMMENT)
+				configured += fmt.Sprintf(
+					"%s | %s | %s \n",
+					ChatField[ii].TABLE_NAME,
+					ChatField[ii].COLUMN_NAME,
+					ChatField[ii].COLUMN_COMMENT,
+				)
 			}
 		}
 	}

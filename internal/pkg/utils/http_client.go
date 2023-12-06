@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	juju_ratelimit "github.com/juju/ratelimit"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -16,6 +15,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	juju_ratelimit "github.com/juju/ratelimit"
 )
 
 type HttpClient struct {
@@ -35,7 +36,11 @@ func NewHttpClient() *HttpClient {
 	return result
 }
 
-func NewHttpClientRateLimit(rateLimiter map[string]*juju_ratelimit.Bucket, retryTimes int, timeout time.Duration) HttpClient {
+func NewHttpClientRateLimit(
+	rateLimiter map[string]*juju_ratelimit.Bucket,
+	retryTimes int,
+	timeout time.Duration,
+) HttpClient {
 	jar, _ := cookiejar.New(nil)
 	return HttpClient{
 		Header:      make(http.Header),

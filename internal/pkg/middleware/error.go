@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"github.com/championlong/go-quick-start/pkg/log"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -9,11 +8,13 @@ import (
 	"runtime/debug"
 	"strings"
 
+	"github.com/championlong/go-quick-start/pkg/log"
+
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
-// GinRecovery recover掉项目可能出现的panic，并使用zap记录相关日志
+// GinRecovery recover掉项目可能出现的panic，并使用zap记录相关日志.
 func GinRecovery(stack bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
@@ -23,7 +24,8 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 				var brokenPipe bool
 				if ne, ok := err.(*net.OpError); ok {
 					if se, ok := ne.Err.(*os.SyscallError); ok {
-						if strings.Contains(strings.ToLower(se.Error()), "broken pipe") || strings.Contains(strings.ToLower(se.Error()), "connection reset by peer") {
+						if strings.Contains(strings.ToLower(se.Error()), "broken pipe") ||
+							strings.Contains(strings.ToLower(se.Error()), "connection reset by peer") {
 							brokenPipe = true
 						}
 					}
@@ -36,7 +38,7 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 						zap.String("request", string(httpRequest)),
 					)
 					// If the connection is dead, we can't write a status to it.
-					_ = c.Error(err.(error)) // nolint: errcheck
+					_ = c.Error(err.(error))
 					c.Abort()
 					return
 				}

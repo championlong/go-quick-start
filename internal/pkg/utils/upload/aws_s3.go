@@ -3,9 +3,11 @@ package upload
 import (
 	"errors"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/app/global"
 	"mime/multipart"
 	"time"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -20,7 +22,8 @@ type AwsS3 struct{}
 //@author: [WqyJh](https://github.com/WqyJh)
 //@object: *AwsS3
 //@function: UploadFile
-//@description: Upload file to Aws S3 using aws-sdk-go. See https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-basic-bucket-operations.html#s3-examples-bucket-ops-upload-file-to-bucket
+// @description: Upload file to Aws S3 using aws-sdk-go. See
+// https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-basic-bucket-operations.html#s3-examples-bucket-ops-upload-file-to-bucket
 //@param: file *multipart.FileHeader
 //@return: string, string, error
 
@@ -53,7 +56,8 @@ func (*AwsS3) UploadFile(file *multipart.FileHeader) (string, string, error) {
 //@author: [WqyJh](https://github.com/WqyJh)
 //@object: *AwsS3
 //@function: DeleteFile
-//@description: Delete file from Aws S3 using aws-sdk-go. See https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-basic-bucket-operations.html#s3-examples-bucket-ops-delete-bucket-item
+// @description: Delete file from Aws S3 using aws-sdk-go. See
+// https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-basic-bucket-operations.html#s3-examples-bucket-ops-delete-bucket-item
 //@param: file *multipart.FileHeader
 //@return: string, string, error
 

@@ -5,10 +5,11 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"sort"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	"gorm.io/gorm"
-	"sort"
 )
 
 const (
@@ -33,7 +34,7 @@ var (
 	ErrDBTypeMismatch          = errors.New("db type mismatch")
 )
 
-// SubInitializer 提供 source/*/init() 使用的接口，每个 initializer 完成一个初始化过程
+// SubInitializer 提供 source/*/init() 使用的接口，每个 initializer 完成一个初始化过程.
 type SubInitializer interface {
 	InitializerName() string // 不一定代表单独一个表，所以改成了更宽泛的语义
 	MigrateTable(ctx context.Context) (next context.Context, err error)
@@ -42,7 +43,7 @@ type SubInitializer interface {
 	DataInserted(ctx context.Context) bool
 }
 
-// TypedDBInitHandler 执行传入的 initializer
+// TypedDBInitHandler 执行传入的 initializer.
 type TypedDBInitHandler interface {
 	EnsureDB(ctx context.Context, conf *request.InitDB) (context.Context, error) // 建库，失败属于 fatal error，因此让它 panic
 	WriteConfig(ctx context.Context) error                                       // 回写配置
@@ -50,13 +51,13 @@ type TypedDBInitHandler interface {
 	InitData(ctx context.Context, inits initSlice) error                         // 建数据 handler
 }
 
-// orderedInitializer 组合一个顺序字段，以供排序
+// orderedInitializer 组合一个顺序字段，以供排序.
 type orderedInitializer struct {
 	order int
 	SubInitializer
 }
 
-// initSlice 供 initializer 排序依赖时使用
+// initSlice 供 initializer 排序依赖时使用.
 type initSlice []*orderedInitializer
 
 var (
@@ -64,7 +65,7 @@ var (
 	cache        map[string]*orderedInitializer
 )
 
-// RegisterInit 注册要执行的初始化过程，会在 InitDB() 时调用
+// RegisterInit 注册要执行的初始化过程，会在 InitDB() 时调用.
 func RegisterInit(order int, i SubInitializer) {
 	if initializers == nil {
 		initializers = initSlice{}
@@ -85,7 +86,7 @@ func RegisterInit(order int, i SubInitializer) {
 
 type InitDBService struct{}
 
-// InitDB 创建数据库并初始化 总入口
+// InitDB 创建数据库并初始化 总入口.
 func (initDBService *InitDBService) InitDB(conf request.InitDB) (err error) {
 	ctx := context.TODO()
 	if len(initializers) == 0 {
@@ -133,7 +134,7 @@ func (initDBService *InitDBService) InitDB(conf request.InitDB) (err error) {
 	return nil
 }
 
-// createDatabase 创建数据库（ EnsureDB() 中调用 ）
+// createDatabase 创建数据库（ EnsureDB() 中调用 ）.
 func createDatabase(dsn string, driver string, createSql string) error {
 	db, err := sql.Open(driver, dsn)
 	if err != nil {
@@ -152,7 +153,7 @@ func createDatabase(dsn string, driver string, createSql string) error {
 	return err
 }
 
-// createTables 创建表（默认 dbInitHandler.initTables 行为）
+// createTables 创建表（默认 dbInitHandler.initTables 行为）.
 func createTables(ctx context.Context, inits initSlice) error {
 	next, cancel := context.WithCancel(ctx)
 	defer func(c func()) { c() }(cancel)

@@ -4,14 +4,15 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/app/service"
-	"github.com/championlong/go-quick-start/internal/pkg/utils"
-	"github.com/championlong/go-quick-start/pkg/log"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/championlong/go-quick-start/internal/app/service"
+	"github.com/championlong/go-quick-start/internal/pkg/utils"
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -63,7 +64,6 @@ func OperationRecord() gin.HandlerFunc {
 		c.Writer = writer
 
 		c.Next()
-
 	}
 }
 

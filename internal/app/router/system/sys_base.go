@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/controller"
+	v1 "github.com/championlong/go-quick-start/internal/app/controller"
 	"github.com/gin-gonic/gin"
 )
 

@@ -5,7 +5,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// Custom claims structure
+// Custom claims structure.
 type CustomClaims struct {
 	BaseClaims
 	BufferTime int64

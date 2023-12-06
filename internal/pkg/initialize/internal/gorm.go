@@ -1,11 +1,12 @@
 package internal
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/global"
-	"gorm.io/gorm/schema"
 	"log"
 	"os"
 	"time"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"gorm.io/gorm/schema"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

@@ -4,13 +4,13 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"math/rand"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 var letterRunes = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
 
 //去掉uuid的连接符，得到32位的uuid
 func GetPureUUID() string {

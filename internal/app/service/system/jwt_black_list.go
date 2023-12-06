@@ -2,10 +2,11 @@ package system
 
 import (
 	"context"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/pkg/log"
-	"time"
 
 	"go.uber.org/zap"
 )

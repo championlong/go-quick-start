@@ -3,11 +3,12 @@ package log
 import (
 	"context"
 	"fmt"
-	"github.com/championlong/go-quick-start/pkg/log/utils"
-	"github.com/natefinch/lumberjack"
 	"os"
 	"path"
 	"time"
+
+	"github.com/championlong/go-quick-start/pkg/log/utils"
+	"github.com/natefinch/lumberjack"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -18,9 +19,7 @@ type ZapLoggerAdapter struct {
 	contextHooks ContextHooks
 }
 
-var (
-	zapConfig *ZapOptions
-)
+var zapConfig *ZapOptions
 
 func New(config *ZapOptions) *ZapLoggerAdapter {
 	if config == nil {
@@ -82,9 +81,8 @@ func New(config *ZapOptions) *ZapLoggerAdapter {
 	return loggerInfo
 }
 
-// getEncoderConfig 获取zapcore.EncoderConfig
+// getEncoderConfig 获取zapcore.EncoderConfig.
 func getEncoderConfig() (config zapcore.EncoderConfig) {
-
 	config = zapcore.EncoderConfig{
 		MessageKey:     "message",
 		LevelKey:       "level",
@@ -113,7 +111,7 @@ func getEncoderConfig() (config zapcore.EncoderConfig) {
 	return config
 }
 
-// getEncoder 获取zapcore.Encoder
+// getEncoder 获取zapcore.Encoder.
 func getEncoder() zapcore.Encoder {
 	if zapConfig.Format == "json" {
 		return zapcore.NewJSONEncoder(getEncoderConfig())
@@ -121,13 +119,13 @@ func getEncoder() zapcore.Encoder {
 	return zapcore.NewConsoleEncoder(getEncoderConfig())
 }
 
-// getEncoderCore 获取Encoder的zapcore.Core
+// getEncoderCore 获取Encoder的zapcore.Core.
 func getEncoderCore(fileName string, level zapcore.LevelEnabler) (core zapcore.Core) {
 	writer := GetWriteSyncer(fileName) // 使用file-rotatelogs进行日志分割
 	return zapcore.NewCore(getEncoder(), writer, level)
 }
 
-// CustomTimeEncoder 自定义日志输出时间格式
+// CustomTimeEncoder 自定义日志输出时间格式.
 func CustomTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(t.Format(zapConfig.Prefix + "2006/01/02 - 15:04:05.000"))
 }

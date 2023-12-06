@@ -2,8 +2,10 @@ package captcha
 
 import (
 	"context"
-	"github.com/championlong/go-quick-start/internal/app/global"
 	"time"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"go.uber.org/zap"
 )

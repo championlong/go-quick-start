@@ -3,6 +3,7 @@ package system
 import (
 	"encoding/json"
 	"fmt"
+
 	systemModel "github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	system2 "github.com/championlong/go-quick-start/internal/app/service/system"
@@ -15,7 +16,7 @@ import (
 
 type DingRoles struct{}
 
-// DingApplyRoles 钉钉审批角色回调接口
+// DingApplyRoles 钉钉审批角色回调接口.
 func (ding *DingRoles) DingApplyRoles(c *gin.Context) {
 	var applyRoles request.ApplyRoleRequest
 	var eventSubscriptionMsg systemModel.EventSubscriptionMsg

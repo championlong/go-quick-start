@@ -2,13 +2,14 @@ package utils
 
 import (
 	"fmt"
-	"github.com/braintree/manners"
-	"github.com/gorilla/mux"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/braintree/manners"
+	"github.com/gorilla/mux"
 )
 
 func StartServer() {

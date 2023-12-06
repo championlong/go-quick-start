@@ -1,6 +1,9 @@
 package system
 
 import (
+	"strconv"
+	"time"
+
 	global2 "github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/request"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
@@ -10,8 +13,6 @@ import (
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/championlong/go-quick-start/pkg/log"
 	"github.com/mojocn/base64Captcha"
-	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
@@ -28,7 +29,7 @@ type BaseApi struct{}
 //	@Security	ApiKeyAuth
 //	@accept		application/json
 //	@Produce	application/json
-//	@Success	200	{object}	response.Response{data=systemRes.SysCaptchaResponse,msg=string}	"生成验证码,返回包括随机数id,base64,验证码长度"
+// 	@Success	200	{object}	response.Response{data=systemRes.SysCaptchaResponse,msg=string}	"生成验证码,返回包括随机数id,base64,验证码长度"
 //	@Router		/base/captcha [post]
 func (b *BaseApi) Captcha(c *gin.Context) {
 	// 判断验证码是否开启
@@ -47,7 +48,13 @@ func (b *BaseApi) Captcha(c *gin.Context) {
 
 	// 字符,公式,验证码配置
 	// 生成默认数字的driver
-	driver := base64Captcha.NewDriverDigit(global2.GVA_CONFIG.Captcha.ImgHeight, global2.GVA_CONFIG.Captcha.ImgWidth, global2.GVA_CONFIG.Captcha.KeyLong, 0.7, 80)
+	driver := base64Captcha.NewDriverDigit(
+		global2.GVA_CONFIG.Captcha.ImgHeight,
+		global2.GVA_CONFIG.Captcha.ImgWidth,
+		global2.GVA_CONFIG.Captcha.KeyLong,
+		0.7,
+		80,
+	)
 	// cp := base64Captcha.NewCaptcha(driver, store.UseWithCtx(c))   // v8下使用redis
 	cp := base64Captcha.NewCaptcha(driver, store)
 	id, b64s, err := cp.Generate()
@@ -68,8 +75,8 @@ func (b *BaseApi) Captcha(c *gin.Context) {
 //	@Tags		Base
 //	@Summary	用户登录
 //	@Produce	application/json
-//	@Param		data	body		systemReq.Login												true	"用户名, 密码, 验证码"
-//	@Success	200		{object}	response.Response{data=systemRes.LoginResponse,msg=string}	"返回包括用户信息,token,过期时间"
+// 	@Param		data	body		systemReq.Login												true	"用户名, 密码, 验证码"
+// 	@Success	200		{object}	response.Response{data=systemRes.LoginResponse,msg=string}	"返回包括用户信息,token,过期时间"
 //	@Router		/base/login [post]
 func (b *BaseApi) Login(c *gin.Context) {
 	var l systemReq.Login
@@ -91,7 +98,7 @@ func (b *BaseApi) Login(c *gin.Context) {
 	}
 }
 
-// tokenNext 登录以后签发jwt
+// tokenNext 登录以后签发jwt.
 func (b *BaseApi) tokenNext(c *gin.Context, user system.SysUser) {
 	j := &utils.JWT{SigningKey: []byte(global2.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
@@ -153,8 +160,8 @@ func (b *BaseApi) tokenNext(c *gin.Context, user system.SysUser) {
 //	@Tags		SysUser
 //	@Summary	用户注册账号
 //	@Produce	application/json
-//	@Param		data	body		systemReq.Register												true	"用户名, 昵称, 密码, 角色ID"
-//	@Success	200		{object}	response.Response{data=systemRes.SysUserResponse,msg=string}	"用户注册账号,返回包括用户信息"
+// 	@Param		data	body		systemReq.Register												true	"用户名, 昵称, 密码, 角色ID"
+// 	@Success	200		{object}	response.Response{data=systemRes.SysUserResponse,msg=string}	"用户注册账号,返回包括用户信息"
 //	@Router		/user/admin_register [post]
 func (b *BaseApi) Register(c *gin.Context) {
 	var r systemReq.Register
@@ -169,7 +176,13 @@ func (b *BaseApi) Register(c *gin.Context) {
 			AuthorityId: v,
 		})
 	}
-	user := &system.SysUser{Username: r.Username, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, AuthorityId: r.AuthorityId}
+	user := &system.SysUser{
+		Username:    r.Username,
+		NickName:    r.NickName,
+		Password:    r.Password,
+		HeaderImg:   r.HeaderImg,
+		AuthorityId: r.AuthorityId,
+	}
 	err, userReturn := userService.Register(*user)
 	if err != nil {
 		log.Error("注册失败!", zap.Error(err))
@@ -210,7 +223,7 @@ func (b *BaseApi) ChangePassword(c *gin.Context) {
 //	@accept		application/json
 //	@Produce	application/json
 //	@Param		data	body		request.PageInfo										true	"页码, 每页大小"
-//	@Success	200		{object}	response.Response{data=response.PageResult,msg=string}	"分页获取用户列表,返回包括列表,总数,页码,每页数量"
+// 	@Success	200		{object}	response.Response{data=response.PageResult,msg=string}	"分页获取用户列表,返回包括列表,总数,页码,每页数量"
 //	@Router		/user/getUserList [post]
 func (b *BaseApi) GetUserList(c *gin.Context) {
 	var pageInfo request.PageInfo
@@ -265,7 +278,6 @@ func (b *BaseApi) SetUserAuthority(c *gin.Context) {
 			c.Header("new-expires-at", strconv.FormatInt(claims.ExpiresAt, 10))
 			response.OkWithMessage("修改成功", c)
 		}
-
 	}
 }
 
@@ -324,7 +336,7 @@ func (b *BaseApi) DeleteUser(c *gin.Context) {
 //	@Security	ApiKeyAuth
 //	@accept		application/json
 //	@Produce	application/json
-//	@Param		data	body		system.SysUser												true	"ID, 用户名, 昵称, 头像链接"
+// 	@Param		data	body		system.SysUser												true	"ID, 用户名, 昵称, 头像链接"
 //	@Success	200		{object}	response.Response{data=map[string]interface{},msg=string}	"设置用户信息"
 //	@Router		/user/setUserInfo [put]
 func (b *BaseApi) SetUserInfo(c *gin.Context) {
@@ -365,7 +377,7 @@ func (b *BaseApi) SetUserInfo(c *gin.Context) {
 //	@Security	ApiKeyAuth
 //	@accept		application/json
 //	@Produce	application/json
-//	@Param		data	body		system.SysUser												true	"ID, 用户名, 昵称, 头像链接"
+// 	@Param		data	body		system.SysUser												true	"ID, 用户名, 昵称, 头像链接"
 //	@Success	200		{object}	response.Response{data=map[string]interface{},msg=string}	"设置用户信息"
 //	@Router		/user/SetSelfInfo [put]
 func (b *BaseApi) SetSelfInfo(c *gin.Context) {
@@ -425,7 +437,7 @@ func (b *BaseApi) ResetPassword(c *gin.Context) {
 	}
 }
 
-// 类型转换
+// 类型转换.
 func interfaceToInt(v interface{}) (i int) {
 	switch v := v.(type) {
 	case int:

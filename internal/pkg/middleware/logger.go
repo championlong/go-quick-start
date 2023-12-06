@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// LogLayout 日志layout
+// LogLayout 日志layout.
 type LogLayout struct {
 	Time      time.Time
 	Metadata  map[string]interface{} // 存储自定义原数据

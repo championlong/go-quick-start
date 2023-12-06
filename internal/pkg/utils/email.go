@@ -3,9 +3,10 @@ package utils
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/app/plugin/email/global"
 	"net/smtp"
 	"strings"
+
+	"github.com/championlong/go-quick-start/internal/app/plugin/email/global"
 
 	"github.com/jordan-wright/email"
 )

@@ -5,13 +5,13 @@ import (
 	"github.com/championlong/go-quick-start/internal/pkg/initialize/internal"
 	"github.com/championlong/go-quick-start/internal/pkg/options"
 
-	//_ "github.com/godror/godror"
+	//_ "github.com/godror/godror".
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 // GormOracle 初始化oracle数据库
-// 如果需要Oracle库 放开import里的注释 把下方 mysql.Config 改为 oracle.Config ;  mysql.New 改为 oracle.New
+// 如果需要Oracle库 放开import里的注释 把下方 mysql.Config 改为 oracle.Config ;  mysql.New 改为 oracle.New.
 func GormOracle() *gorm.DB {
 	m := global.GVA_CONFIG.Oracle
 	if m.Dbname == "" {
@@ -31,7 +31,7 @@ func GormOracle() *gorm.DB {
 	}
 }
 
-// GormOracleByConfig 初始化Oracle数据库用过传入配置
+// GormOracleByConfig 初始化Oracle数据库用过传入配置.
 func GormOracleByConfig(m options.Oracle) *gorm.DB {
 	if m.Dbname == "" {
 		return nil

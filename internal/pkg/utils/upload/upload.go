@@ -1,8 +1,9 @@
 package upload
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/global"
 	"mime/multipart"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
 )
 
 // OSS 对象存储接口

@@ -1,14 +1,15 @@
 package middleware
 
 import (
+	"strconv"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/app/service"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/championlong/go-quick-start/pkg/log"
-	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"log"
+	"net"
+
 	"github.com/championlong/go-quick-start/demo/grpc/server/controller/hello_controller"
 	"github.com/championlong/go-quick-start/demo/grpc/server/proto/hello"
 	"google.golang.org/grpc"
-	"log"
-	"net"
 )
 
 const (

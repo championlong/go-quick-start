@@ -4,14 +4,15 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/internal/pkg/constants"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/championlong/go-quick-start/pkg/log"
 	"go.uber.org/zap"
-	"net/url"
-	"time"
 )
 
 /*
@@ -62,7 +63,7 @@ func getDingAccessToken(ctx context.Context, redisKey string) (string, error) {
 		if err != nil {
 			log.Error("GetDingdingAccessToken set redis fail", zap.Error(err))
 		}
-		//redis存储失败不影响正常返回值
+		// redis存储失败不影响正常返回值
 		return accessTokenResponse.AccessToken, nil
 	}
 	return "", err

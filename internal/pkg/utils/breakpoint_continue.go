@@ -22,7 +22,13 @@ const (
 //@param: content []byte, fileName string, contentNumber int, contentTotal int, fileMd5 string
 //@return: error, string
 
-func BreakPointContinue(content []byte, fileName string, contentNumber int, contentTotal int, fileMd5 string) (error, string) {
+func BreakPointContinue(
+	content []byte,
+	fileName string,
+	contentNumber int,
+	contentTotal int,
+	fileMd5 string,
+) (error, string) {
 	path := breakpointDir + fileMd5 + "/"
 	err := os.MkdirAll(path, os.ModePerm)
 	if err != nil {

@@ -1,15 +1,16 @@
 package main
 
 import (
+	"io"
+	"log"
+
 	"github.com/championlong/go-quick-start/demo/grpc/client/proto/hello"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"io"
-	"log"
 )
 
 const (
-	// gRPC 服务地址
+	// gRPC 服务地址.
 	Address = "0.0.0.0:9090"
 )
 
@@ -25,7 +26,6 @@ func main() {
 
 	// 调用 SayHello 方法
 	res, err := c.SayHello(context.Background(), &hello.HelloRequest{Name: "Hello World"})
-
 	if err != nil {
 		log.Fatalln(err)
 	}

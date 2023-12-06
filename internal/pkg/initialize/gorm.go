@@ -1,17 +1,18 @@
 package initialize
 
 import (
+	"os"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	system2 "github.com/championlong/go-quick-start/internal/app/model/system"
 	"github.com/championlong/go-quick-start/pkg/log"
-	"os"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
 // Gorm 初始化数据库并产生数据库全局变量
-// Author SliverHorn
+// Author SliverHorn.
 func Gorm() *gorm.DB {
 	switch global.GVA_CONFIG.System.DbType {
 	case "mysql":
@@ -28,7 +29,7 @@ func Gorm() *gorm.DB {
 }
 
 // RegisterTables 注册数据库表专用
-// Author SliverHorn
+// Author SliverHorn.
 func RegisterTables(db *gorm.DB) {
 	err := db.AutoMigrate(
 		// 系统模块表

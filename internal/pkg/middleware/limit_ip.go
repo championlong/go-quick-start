@@ -3,11 +3,12 @@ package middleware
 import (
 	"context"
 	"errors"
+	"net/http"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/response"
 	"github.com/championlong/go-quick-start/pkg/log"
-	"net/http"
-	"time"
 
 	"go.uber.org/zap"
 
@@ -37,7 +38,7 @@ func (l LimitConfig) LimitWithTime() gin.HandlerFunc {
 	}
 }
 
-// DefaultGenerationKey 默认生成key
+// DefaultGenerationKey 默认生成key.
 func DefaultGenerationKey(c *gin.Context) string {
 	return "GVA_Limit" + c.ClientIP()
 }
@@ -62,7 +63,7 @@ func DefaultLimit() gin.HandlerFunc {
 	}.LimitWithTime()
 }
 
-// SetLimitWithTime 设置访问次数
+// SetLimitWithTime 设置访问次数.
 func SetLimitWithTime(key string, limit int, expiration time.Duration) error {
 	count, err := global.GVA_REDIS.Exists(context.Background(), key).Result()
 	if err != nil {

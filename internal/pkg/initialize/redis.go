@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"context"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/pkg/log"
 	"github.com/go-redis/redis/v8"

@@ -75,7 +75,8 @@ func AutoInjectionCode(filepath string, funcName string, codeData string) error 
 	}
 
 	// 在指定函数名，且函数中startComment和endComment都存在时，进行区间查重
-	if (codeStartPos != -1 && codeEndPos <= srcDataLen) && (startCommentPos != -1 && endCommentPos != srcDataLen) && expectedFunction != nil {
+	if (codeStartPos != -1 && codeEndPos <= srcDataLen) && (startCommentPos != -1 && endCommentPos != srcDataLen) &&
+		expectedFunction != nil {
 		if exist := checkExist(&srcData, startCommentPos, endCommentPos, expectedFunction.Body, codeData); exist {
 			fmt.Printf("文件 %s 待插入数据 %s 已存在\n", filepath, codeData)
 			return nil // 这里不需要返回错误？

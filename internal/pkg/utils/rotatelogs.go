@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/global"
 	"os"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
 
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap/zapcore"

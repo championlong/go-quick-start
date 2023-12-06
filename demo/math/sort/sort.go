@@ -20,6 +20,6 @@ func search(array []int, target int) int {
 }
 
 func main() {
-	a := []int{1,2,3,4,5}
-	fmt.Println(search(a,4))
+	a := []int{1, 2, 3, 4, 5}
+	fmt.Println(search(a, 4))
 }

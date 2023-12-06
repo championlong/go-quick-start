@@ -85,12 +85,18 @@ func (c *DingTalkCrypto) GetDecryptMsg(signature, timestamp, nonce, secretMsg st
 }
 
 func (c *DingTalkCrypto) GetEncryptMsg(msg string) (map[string]string, error) {
-	var timestamp = time.Now().Second()
-	var nonce = randomString(12)
+	timestamp := time.Now().Second()
+	nonce := randomString(12)
 	str, sign, err := c.GetEncryptMsgDetail(msg, fmt.Sprint(timestamp), nonce)
 
-	return map[string]string{"nonce": nonce, "timeStamp": fmt.Sprint(timestamp), "encrypt": str, "msg_signature": sign}, err
+	return map[string]string{
+		"nonce":         nonce,
+		"timeStamp":     fmt.Sprint(timestamp),
+		"encrypt":       str,
+		"msg_signature": sign,
+	}, err
 }
+
 func (c *DingTalkCrypto) GetEncryptMsgDetail(msg, timestamp, nonce string) (string, string, error) {
 	size := make([]byte, 4)
 	binary.BigEndian.PutUint32(size, uint32(len(msg)))
@@ -128,7 +134,7 @@ func sha1Sign(s string) string {
 	return fmt.Sprintf("%x", bs)
 }
 
-// 数据签名
+// 数据签名.
 func (c *DingTalkCrypto) CreateSignature(token, timestamp, nonce, msg string) string {
 	params := make([]string, 0)
 	params = append(params, token)
@@ -139,29 +145,29 @@ func (c *DingTalkCrypto) CreateSignature(token, timestamp, nonce, msg string) st
 	return sha1Sign(strings.Join(params, ""))
 }
 
-// 验证数据签名
+// 验证数据签名.
 func (c *DingTalkCrypto) VerificationSignature(token, timestamp, nonce, msg, sigture string) bool {
 	return c.CreateSignature(token, timestamp, nonce, msg) == sigture
 }
 
-// 解密补位
+// 解密补位.
 func pkCS7UnPadding(plantText []byte) []byte {
 	length := len(plantText)
 	unpadding := int(plantText[length-1])
 	return plantText[:(length - unpadding)]
 }
 
-// 加密补位
+// 加密补位.
 func pkCS7Padding(ciphertext []byte, blockSize int) []byte {
 	padding := blockSize - len(ciphertext)%blockSize
 	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
 	return append(ciphertext, padtext...)
 }
 
-// 随机字符串
+// 随机字符串.
 func randomString(n int, alphabets ...byte) string {
 	const alphanum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	var bytes = make([]byte, n)
+	bytes := make([]byte, n)
 	var randby bool
 	if num, err := rand.Read(bytes); num != n || err != nil {
 		rand.Seed(time.Now().UnixNano())

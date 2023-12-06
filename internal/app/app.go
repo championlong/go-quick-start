@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/championlong/go-quick-start/internal/pkg/app"
+	"github.com/championlong/go-quick-start/pkg/app"
 )
 
 func NewApp(basename string) *app.App {

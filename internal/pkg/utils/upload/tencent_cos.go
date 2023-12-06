@@ -4,11 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/app/global"
 	"mime/multipart"
 	"net/http"
 	"net/url"
 	"time"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"github.com/tencentyun/cos-go-sdk-v5"
 	"go.uber.org/zap"
@@ -48,7 +50,9 @@ func (*TencentCOS) DeleteFile(key string) error {
 
 // NewClient init COS client
 func NewClient() *cos.Client {
-	urlStr, _ := url.Parse("https://" + global.GVA_CONFIG.TencentCOS.Bucket + ".cos." + global.GVA_CONFIG.TencentCOS.Region + ".myqcloud.com")
+	urlStr, _ := url.Parse(
+		"https://" + global.GVA_CONFIG.TencentCOS.Bucket + ".cos." + global.GVA_CONFIG.TencentCOS.Region + ".myqcloud.com",
+	)
 	baseURL := &cos.BaseURL{BucketURL: urlStr}
 	client := cos.NewClient(baseURL, &http.Client{
 		Transport: &cos.AuthorizationTransport{

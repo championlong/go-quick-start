@@ -3,8 +3,9 @@ package kafka_consumer
 import (
 	"context"
 	"encoding/json"
-	"github.com/Shopify/sarama"
 	"strconv"
+
+	"github.com/Shopify/sarama"
 )
 
 type RoomMessage struct {
@@ -40,7 +41,11 @@ func Consume(msgChan chan string) {
 	go func() {
 		defer consumer.Close()
 		for {
-			err := consumer.Consume(context.Background(), []string{"meeting_status_channel"}, &consumerGroupHandler{msgChan: msgChan})
+			err := consumer.Consume(
+				context.Background(),
+				[]string{"meeting_status_channel"},
+				&consumerGroupHandler{msgChan: msgChan},
+			)
 			if err != nil {
 				panic(recover())
 			}

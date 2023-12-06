@@ -3,6 +3,7 @@ package system
 import (
 	"errors"
 	"fmt"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/common/request"
 	"github.com/championlong/go-quick-start/internal/app/model/system"
@@ -21,7 +22,10 @@ type UserService struct{}
 
 func (userService *UserService) Register(u system.SysUser) (err error, userInter system.SysUser) {
 	var user system.SysUser
-	if !errors.Is(global.GVA_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+	if !errors.Is(
+		global.GVA_DB.Where("username = ?", u.Username).First(&user).Error,
+		gorm.ErrRecordNotFound,
+	) { // 判断用户名是否注册
 		return errors.New("用户名已注册"), userInter
 	}
 	// 否则 附加uuid 密码md5简单加密 注册
@@ -45,9 +49,9 @@ func (userService *UserService) Login(u *system.SysUser) (err error, userInter *
 	var user system.SysUser
 	u.Password = utils.MD5V([]byte(u.Password))
 	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Error
-	//err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authorities").Preload("Authority").First(&user).Error
+	// err = global.GVA_DB.Where("username = ? AND password = ?", u.Username,
+	// u.Password).Preload("Authorities").Preload("Authority").First(&user).Error
 	if err == nil {
-
 	}
 	return err, &user
 }
@@ -58,10 +62,16 @@ func (userService *UserService) Login(u *system.SysUser) (err error, userInter *
 //@param: u *model.SysUser, newPassword string
 //@return: err error, userInter *model.SysUser
 
-func (userService *UserService) ChangePassword(u *system.SysUser, newPassword string) (err error, userInter *system.SysUser) {
+func (userService *UserService) ChangePassword(
+	u *system.SysUser,
+	newPassword string,
+) (err error, userInter *system.SysUser) {
 	var user system.SysUser
 	u.Password = utils.MD5V([]byte(u.Password))
-	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Update("password", utils.MD5V([]byte(newPassword))).Error
+	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).
+		First(&user).
+		Update("password", utils.MD5V([]byte(newPassword))).
+		Error
 	return err, u
 }
 
@@ -103,7 +113,6 @@ func (userService *UserService) SetUserAuthority(id uint, uuid uuid.UUID, author
 
 func (userService *UserService) SetUserAuthorities(id uint, authorityIds []string) (err error) {
 	return global.GVA_DB.Transaction(func(tx *gorm.DB) error {
-
 		TxErr := tx.Where("id = ?", id).First(&system.SysUser{}).Update("authority_id", authorityIds[0]).Error
 		if TxErr != nil {
 			return TxErr
@@ -186,6 +195,9 @@ func (userService *UserService) FindUserByUuid(uuid string) (err error, user *sy
 //@return: err error
 
 func (userService *UserService) ResetPassword(ID uint) (err error) {
-	err = global.GVA_DB.Model(&system.SysUser{}).Where("id = ?", ID).Update("password", utils.MD5V([]byte("123456"))).Error
+	err = global.GVA_DB.Model(&system.SysUser{}).
+		Where("id = ?", ID).
+		Update("password", utils.MD5V([]byte("123456"))).
+		Error
 	return err
 }

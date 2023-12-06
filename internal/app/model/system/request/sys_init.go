@@ -2,22 +2,23 @@ package request
 
 import (
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"os"
+
+	"github.com/championlong/go-quick-start/internal/pkg/options"
 )
 
 type InitDB struct {
-	DBType   string `json:"dbType"`                    // 数据库类型
-	Host     string `json:"host"`                      // 服务器地址
-	Port     string `json:"port"`                      // 数据库连接端口
-	UserName string `json:"userName"`                  // 数据库用户名
-	Password string `json:"password"`                  // 数据库密码
-	DBName   string `json:"dbName" binding:"required"` // 数据库名
-	DBPath   string `json:"dbPath"`                    // sqlite数据库文件路径
+	DBType   string `json:"dbType"`                      // 数据库类型
+	Host     string `json:"host"`                        // 服务器地址
+	Port     string `json:"port"`                        // 数据库连接端口
+	UserName string `json:"userName"`                    // 数据库用户名
+	Password string `json:"password"`                    // 数据库密码
+	DBName   string `json:"dbName"   binding:"required"` // 数据库名
+	DBPath   string `json:"dbPath"`                      // sqlite数据库文件路径
 }
 
 // MysqlEmptyDsn msyql 空数据库 建库链接
-// Author SliverHorn
+// Author SliverHorn.
 func (i *InitDB) MysqlEmptyDsn() string {
 	if i.Host == "" {
 		i.Host = "127.0.0.1"
@@ -29,7 +30,7 @@ func (i *InitDB) MysqlEmptyDsn() string {
 }
 
 // PgsqlEmptyDsn pgsql 空数据库 建库链接
-// Author SliverHorn
+// Author SliverHorn.
 func (i *InitDB) PgsqlEmptyDsn() string {
 	if i.Host == "" {
 		i.Host = "127.0.0.1"
@@ -41,7 +42,7 @@ func (i *InitDB) PgsqlEmptyDsn() string {
 }
 
 // SqliteEmptyDsn sqlite 空数据库 建库链接
-// Author Kafumio
+// Author Kafumio.
 func (i *InitDB) SqliteEmptyDsn() string {
 	separator := string(os.PathSeparator)
 	return i.DBPath + separator + i.DBName + ".db"

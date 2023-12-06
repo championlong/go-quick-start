@@ -10,7 +10,12 @@ import (
 )
 
 func SendDingdingAlertError(content string) {
-	err := ding.SendDingMessage(constants.ALERT_WEBHOOK_ROBOT, platform.MsgTypeText, ding_talk.TextMessage{Content: content}, ding_talk.At{})
+	err := ding.SendDingMessage(
+		constants.ALERT_WEBHOOK_ROBOT,
+		platform.MsgTypeText,
+		ding_talk.TextMessage{Content: content},
+		ding_talk.At{},
+	)
 	if err != nil {
 		log.Error("DingDingSend alert_robot is err!", zap.Error(err))
 	}

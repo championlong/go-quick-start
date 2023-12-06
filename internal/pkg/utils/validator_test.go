@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/championlong/go-quick-start/internal/app/model/common/request"
 	"testing"
+
+	"github.com/championlong/go-quick-start/internal/app/model/common/request"
 )
 
 type PageInfoTest struct {

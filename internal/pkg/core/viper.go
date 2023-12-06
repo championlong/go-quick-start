@@ -3,10 +3,11 @@ package core
 import (
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/championlong/go-quick-start/internal/pkg/constants"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"os"
 )
 
 type CliOptions interface {

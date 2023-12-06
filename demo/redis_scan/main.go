@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
 	"github.com/go-redis/redis/v8"
 	juju_ratelimit "github.com/juju/ratelimit"
-	"time"
 )
 
 func setup() {
@@ -22,9 +23,8 @@ func main() {
 	select {}
 }
 
-//扫描所有device
+// 扫描所有device.
 func dealDevice() {
-
 	pipelineRta := global.GVA_REDIS.Pipeline()
 	var cursor uint64
 	var n int

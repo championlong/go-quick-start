@@ -8,9 +8,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/championlong/go-quick-start/pkg/log"
+
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
+
+var progressMessage = color.GreenString("==>")
 
 // App is the main structure of a cli application.
 // It is recommended that an app be created with the app.NewApp() function.
@@ -20,8 +24,6 @@ type App struct {
 	description string
 	runFunc     RunFunc
 	silence     bool
-	noVersion   bool
-	noConfig    bool
 	commands    []*Command
 	args        cobra.PositionalArgs
 	cmd         *cobra.Command
@@ -54,20 +56,6 @@ func WithDescription(desc string) Option {
 func WithSilence() Option {
 	return func(a *App) {
 		a.silence = true
-	}
-}
-
-// WithNoVersion set the application does not provide version flag.
-func WithNoVersion() Option {
-	return func(a *App) {
-		a.noVersion = true
-	}
-}
-
-// WithNoConfig set the application does not provide config flag.
-func WithNoConfig() Option {
-	return func(a *App) {
-		a.noConfig = true
 	}
 }
 
@@ -152,11 +140,16 @@ func (a *App) Command() *cobra.Command {
 }
 
 func (a *App) runCommand(cmd *cobra.Command, args []string) error {
-
+	printWorkingDir()
 	// run application
 	if a.runFunc != nil {
 		return a.runFunc(a.basename)
 	}
 
 	return nil
+}
+
+func printWorkingDir() {
+	wd, _ := os.Getwd()
+	log.Infof("%v WorkingDir: %s", progressMessage, wd)
 }

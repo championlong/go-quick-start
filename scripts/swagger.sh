@@ -2,4 +2,6 @@
 
 cd ../internal/app
 
-swag init --parseDependency -g ../../cmd/gin_app/main.go
+swag init --parseDependency -g ../../cmd/gin_app/main.go -o ../../api/swagger/docs
+
+

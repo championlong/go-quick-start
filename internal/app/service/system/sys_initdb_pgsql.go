@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path/filepath"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/model/system/request"
 	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"github.com/gookit/color"
-	"path/filepath"
 
 	"github.com/gofrs/uuid/v5"
 	"gorm.io/driver/postgres"
@@ -22,7 +23,7 @@ func NewPgsqlInitHandler() *PgsqlInitHandler {
 	return &PgsqlInitHandler{}
 }
 
-// WriteConfig pgsql 回写配置
+// WriteConfig pgsql 回写配置.
 func (h PgsqlInitHandler) WriteConfig(ctx context.Context) error {
 	c, ok := ctx.Value("config").(options.Pgsql)
 	if !ok {
@@ -38,7 +39,7 @@ func (h PgsqlInitHandler) WriteConfig(ctx context.Context) error {
 	return global.GVA_VP.WriteConfig()
 }
 
-// EnsureDB 创建数据库并初始化 pg
+// EnsureDB 创建数据库并初始化 pg.
 func (h PgsqlInitHandler) EnsureDB(ctx context.Context, conf *request.InitDB) (next context.Context, err error) {
 	if s, ok := ctx.Value("dbtype").(string); !ok || s != "pgsql" {
 		return ctx, ErrDBTypeMismatch

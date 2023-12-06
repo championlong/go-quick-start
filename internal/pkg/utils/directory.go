@@ -2,8 +2,9 @@ package utils
 
 import (
 	"errors"
-	"github.com/championlong/go-quick-start/pkg/log"
 	"os"
+
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"go.uber.org/zap"
 )

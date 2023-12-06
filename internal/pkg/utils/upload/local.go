@@ -2,14 +2,16 @@ package upload
 
 import (
 	"errors"
-	"github.com/championlong/go-quick-start/internal/app/global"
-	"github.com/championlong/go-quick-start/internal/pkg/utils"
 	"io"
 	"mime/multipart"
 	"os"
 	"path"
 	"strings"
 	"time"
+
+	"github.com/championlong/go-quick-start/internal/app/global"
+	"github.com/championlong/go-quick-start/internal/pkg/utils"
+	"github.com/championlong/go-quick-start/pkg/log"
 
 	"go.uber.org/zap"
 )

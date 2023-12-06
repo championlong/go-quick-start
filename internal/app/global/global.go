@@ -1,8 +1,9 @@
 package global
 
 import (
-	"github.com/championlong/go-quick-start/internal/pkg/utils/timer"
 	"sync"
+
+	"github.com/championlong/go-quick-start/internal/pkg/utils/timer"
 
 	"github.com/songzhibin97/gkit/cache/local_cache"
 
@@ -23,7 +24,7 @@ var (
 	GVA_REDIS  *redis.Client
 	GVA_CONFIG config.Server
 	GVA_VP     *viper.Viper
-	// GVA_LOG    *oplogging.Logger
+	// GVA_LOG    *oplogging.Logger.
 	GVA_LOG                 *zap.Logger
 	GVA_Timer               timer.Timer = timer.NewTimerTask()
 	GVA_Concurrency_Control             = &singleflight.Group{}
@@ -32,14 +33,14 @@ var (
 	lock       sync.RWMutex
 )
 
-// GetGlobalDBByDBName 通过名称获取db list中的db
+// GetGlobalDBByDBName 通过名称获取db list中的db.
 func GetGlobalDBByDBName(dbname string) *gorm.DB {
 	lock.RLock()
 	defer lock.RUnlock()
 	return GVA_DBList[dbname]
 }
 
-// MustGetGlobalDBByDBName 通过名称获取db 如果不存在则panic
+// MustGetGlobalDBByDBName 通过名称获取db 如果不存在则panic.
 func MustGetGlobalDBByDBName(dbname string) *gorm.DB {
 	lock.RLock()
 	defer lock.RUnlock()

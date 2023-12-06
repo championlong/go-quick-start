@@ -2,6 +2,9 @@ package app
 
 import (
 	"fmt"
+	"path/filepath"
+	"time"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/championlong/go-quick-start/internal/app/service/system"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
@@ -9,8 +12,6 @@ import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/songzhibin97/gkit/cache/local_cache"
-	"path/filepath"
-	"time"
 
 	"go.uber.org/zap"
 )

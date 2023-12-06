@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// GormSqlite 初始化Sqlite数据库
+// GormSqlite 初始化Sqlite数据库.
 func GormSqlite() *gorm.DB {
 	s := global.GVA_CONFIG.Sqlite
 	if s.Dbname == "" {
@@ -25,7 +25,7 @@ func GormSqlite() *gorm.DB {
 	}
 }
 
-// GormSqliteByConfig 初始化Sqlite数据库用过传入配置
+// GormSqliteByConfig 初始化Sqlite数据库用过传入配置.
 func GormSqliteByConfig(s options.Sqlite) *gorm.DB {
 	if s.Dbname == "" {
 		return nil

@@ -1,10 +1,11 @@
 package upload
 
 import (
+	"mime/multipart"
+
 	"github.com/championlong/go-quick-start/internal/app/global"
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 	"github.com/pkg/errors"
-	"mime/multipart"
 )
 
 var HuaWeiObs = new(_obs)
@@ -12,7 +13,11 @@ var HuaWeiObs = new(_obs)
 type _obs struct{}
 
 func NewHuaWeiObsClient() (client *obs.ObsClient, err error) {
-	return obs.New(global.GVA_CONFIG.HuaWeiObs.AccessKey, global.GVA_CONFIG.HuaWeiObs.SecretKey, global.GVA_CONFIG.HuaWeiObs.Endpoint)
+	return obs.New(
+		global.GVA_CONFIG.HuaWeiObs.AccessKey,
+		global.GVA_CONFIG.HuaWeiObs.SecretKey,
+		global.GVA_CONFIG.HuaWeiObs.Endpoint,
+	)
 }
 
 func (o *_obs) UploadFile(file *multipart.FileHeader) (filename string, filepath string, err error) {

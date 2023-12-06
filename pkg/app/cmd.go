@@ -6,10 +6,11 @@ package app
 
 import (
 	"fmt"
-	"github.com/championlong/go-quick-start/internal/pkg/core"
 	"os"
 	"runtime"
 	"strings"
+
+	"github.com/championlong/go-quick-start/internal/pkg/core"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
