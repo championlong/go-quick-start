@@ -3,11 +3,12 @@ package kafka_consumer
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/Shopify/sarama"
-	"github.com/championlong/go-quick-start/app/recovery"
+	"github.com/championlong/go-quick-start/pkg/recovery"
 	"github.com/wvanbergen/kafka/consumergroup"
 	"golang.org/x/sync/semaphore"
-	"time"
 )
 
 const (
@@ -41,7 +42,12 @@ func (consumer *roomBookingKafkaConsumer) init() error {
 	cfg.Offsets.ProcessingTimeout = 10 * time.Second
 
 	var err error
-	consumer.consumerGroup, err = consumergroup.JoinConsumerGroup(BOOKING_STATUS_CG, []string{BOOKING_STATUS_TOPIC}, zks, cfg)
+	consumer.consumerGroup, err = consumergroup.JoinConsumerGroup(
+		BOOKING_STATUS_CG,
+		[]string{BOOKING_STATUS_TOPIC},
+		zks,
+		cfg,
+	)
 	if err != nil {
 		return err
 	} else {
@@ -55,7 +61,7 @@ func (consumer *roomBookingKafkaConsumer) init() error {
 	return nil
 }
 
-//for循环消费
+// for循环消费.
 func (consumer *roomBookingKafkaConsumer) consume(ctx context.Context) {
 ConsumeMessage:
 	for {
@@ -69,7 +75,7 @@ ConsumeMessage:
 
 			go consumer.ProcessMsg(ctx, msg.Value)
 
-			//commit after process, confirm at least once
+			// commit after process, confirm at least once
 			err := consumer.consumerGroup.CommitUpto(msg)
 			if err != nil {
 				fmt.Println("%s: error committing: %s", BOOKING_STATUS_TOPIC, err.Error())

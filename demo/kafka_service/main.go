@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/Shopify/sarama"
 	"log"
 	"os"
 	"time"
+
+	"github.com/Shopify/sarama"
 )
 
 var Address3 = []string{""}
@@ -14,7 +15,7 @@ func main() {
 	syncProducer3(Address3)
 }
 
-//同步消息模式
+// 同步消息模式.
 func syncProducer3(address []string) {
 	config := sarama.NewConfig()
 	config.Producer.Return.Successes = true
@@ -31,7 +32,7 @@ func syncProducer3(address []string) {
 	}(p)
 	topic := ""
 	writeToKafka := ``
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		return
 	}

@@ -2,6 +2,7 @@ package hello_controller
 
 import (
 	"fmt"
+
 	"github.com/championlong/go-quick-start/demo/grpc/server/proto/hello"
 	"golang.org/x/net/context"
 )

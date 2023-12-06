@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/Shopify/sarama"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -15,6 +14,8 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/Shopify/sarama"
 )
 
 const (
@@ -27,33 +28,35 @@ const (
 
 type MeetingRoom struct {
 	sync.RWMutex
-	ID       string
-	Status   string
-	Definite bool
-	LastUpdatedTime time.Time
+	ID               string
+	Status           string
+	Definite         bool
+	LastUpdatedTime  time.Time
 	LastBookByMeTime time.Time
 
 	cancelInfo context.CancelFunc
 	cancelBook context.CancelFunc
 }
 
-var meetingRooms = make(map[string]*MeetingRoom)
-var client = &http.Client{
-	Timeout: time.Second * 60,
-	Transport: &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout:   5 * time.Second,
-			KeepAlive: 300 * time.Second,
-			DualStack: true,
-		}).DialContext,
-		MaxIdleConns:          150,
-		IdleConnTimeout:       90 * time.Second,
-		TLSHandshakeTimeout:   5 * time.Second,
-		ExpectContinueTimeout: 1 * time.Second,
-		MaxIdleConnsPerHost:   100,
-	},
-}
+var (
+	meetingRooms = make(map[string]*MeetingRoom)
+	client       = &http.Client{
+		Timeout: time.Second * 60,
+		Transport: &http.Transport{
+			Proxy: http.ProxyFromEnvironment,
+			DialContext: (&net.Dialer{
+				Timeout:   5 * time.Second,
+				KeepAlive: 300 * time.Second,
+				DualStack: true,
+			}).DialContext,
+			MaxIdleConns:          150,
+			IdleConnTimeout:       90 * time.Second,
+			TLSHandshakeTimeout:   5 * time.Second,
+			ExpectContinueTimeout: 1 * time.Second,
+			MaxIdleConnsPerHost:   100,
+		},
+	}
+)
 var nullTime = time.Time{}
 
 func init() {
@@ -85,7 +88,7 @@ func syncKafkaMessage(roomIdChan chan string) {
 		now := time.Now()
 		room.Lock()
 		sub := now.Sub(room.LastBookByMeTime)
-		if sub > time.Millisecond * 300 || sub < time.Millisecond * -300 {
+		if sub > time.Millisecond*300 || sub < time.Millisecond*-300 {
 			room.LastBookByMeTime = nullTime
 			room.Definite = false
 		}
@@ -132,7 +135,7 @@ func roundRobinIndefinite() {
 func roundRobinBook() {
 	wp := NewWorkerPool()
 	for {
-		time.Sleep(50*time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 		var bestRoomId string
 		var maxScore int
 		for _, room := range meetingRooms {
@@ -149,17 +152,17 @@ func roundRobinBook() {
 				if room.Status == MeetingRoomStatusBusy {
 					sub := now.Sub(room.LastUpdatedTime)
 					if room.LastBookByMeTime != nullTime {
-						if sub > 10 * time.Second {
+						if sub > 10*time.Second {
 							return 100
-						} else if sub > 5 * time.Second {
+						} else if sub > 5*time.Second {
 							return 70
 						} else {
 							return 30
 						}
 					} else {
-						if sub > 10 * time.Second {
+						if sub > 10*time.Second {
 							return 80
-						} else if sub > 5 * time.Second {
+						} else if sub > 5*time.Second {
 							return 50
 						} else {
 							return 30
@@ -177,7 +180,7 @@ func roundRobinBook() {
 					return 30
 				}
 				return 30
-			} ()
+			}()
 			if score > maxScore {
 				maxScore = score
 				bestRoomId = room.ID
@@ -217,7 +220,7 @@ func roundRobinBook() {
 func info(ctx context.Context, id string) (string, error) {
 	body := map[string]string{
 		"meeting_room_id": id,
-		"user_token": UserToken,
+		"user_token":      UserToken,
 	}
 	reqBody, _ := json.Marshal(body)
 	request, err := http.NewRequestWithContext(ctx, "POST", "", bytes.NewReader(reqBody))
@@ -235,7 +238,7 @@ func info(ctx context.Context, id string) (string, error) {
 func book(ctx context.Context, id string) (bool, error) {
 	body := map[string]string{
 		"meeting_room_id": id,
-		"user_token": UserToken,
+		"user_token":      UserToken,
 	}
 	reqBody, _ := json.Marshal(body)
 	request, err := http.NewRequestWithContext(ctx, "POST", "", bytes.NewReader(reqBody))
@@ -281,7 +284,11 @@ func Consume(msgChan chan string) {
 	go func() {
 		defer consumer.Close()
 		for {
-			err := consumer.Consume(context.Background(), []string{"meeting_status_channel"}, &consumerGroupHandler{msgChan: msgChan})
+			err := consumer.Consume(
+				context.Background(),
+				[]string{"meeting_status_channel"},
+				&consumerGroupHandler{msgChan: msgChan},
+			)
 			if err != nil {
 				panic(err)
 			}
@@ -321,4 +328,3 @@ func (wp *WorkerPool) Submit(task func()) {
 	default:
 	}
 }
-
