@@ -6,11 +6,10 @@ package app
 
 import (
 	"fmt"
+	"github.com/championlong/go-quick-start/pkg/viper"
 	"os"
 	"runtime"
 	"strings"
-
-	"github.com/championlong/go-quick-start/internal/pkg/core"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -22,7 +21,7 @@ import (
 type Command struct {
 	usage    string
 	desc     string
-	options  core.CliOptions
+	options  viper.CliOptions
 	commands []*Command
 	runFunc  RunCommandFunc
 }
@@ -33,7 +32,7 @@ type CommandOption func(*Command)
 
 // WithCommandOptions to open the application's function to read from the
 // command line.
-func WithCommandOptions(opt core.CliOptions) CommandOption {
+func WithCommandOptions(opt viper.CliOptions) CommandOption {
 	return func(c *Command) {
 		c.options = opt
 	}

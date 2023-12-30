@@ -1,17 +1,17 @@
-package core
+package viper
 
 import (
 	"flag"
 	"fmt"
 	"os"
 
-	"github.com/championlong/go-quick-start/internal/pkg/constants"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
 type CliOptions interface {
 	String() string
+	GetConfigType() string
 }
 
 func Viper(path string, configValue CliOptions) *viper.Viper {
@@ -19,10 +19,9 @@ func Viper(path string, configValue CliOptions) *viper.Viper {
 	if len(path) == 0 {
 		flag.StringVar(&config, "c", "", "choose config file.")
 		flag.Parse()
-		if config == "" { // 优先级: 命令行 > 环境变量 > 默认值
-			if configEnv := os.Getenv(constants.ConfigEnv); configEnv == "" {
-				config = constants.ConfigFile
-				fmt.Printf("您正在使用config的默认值,config的路径为%v\n", constants.ConfigFile)
+		if config == "" { // 优先级: 命令行 > 环境变量
+			if configEnv := os.Getenv(ConfigEnv); configEnv == "" {
+				panic("config路径为空，请设置")
 			} else {
 				config = configEnv
 				fmt.Printf("您正在使用GVA_CONFIG环境变量,config的路径为%v\n", config)
@@ -37,7 +36,7 @@ func Viper(path string, configValue CliOptions) *viper.Viper {
 
 	v := viper.New()
 	v.SetConfigFile(config)
-	v.SetConfigType("yaml")
+	v.SetConfigType(configValue.GetConfigType())
 	err := v.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))

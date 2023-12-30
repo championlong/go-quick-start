@@ -4,9 +4,9 @@ import (
 	"flag"
 	"github.com/championlong/go-quick-start/internal/app"
 	"github.com/championlong/go-quick-start/internal/app/global"
-	"github.com/championlong/go-quick-start/internal/pkg/core"
 	"github.com/championlong/go-quick-start/internal/pkg/initialize"
 	"github.com/championlong/go-quick-start/pkg/log"
+	"github.com/championlong/go-quick-start/pkg/viper"
 	ding "github.com/championlong/robot-talk-sdk"
 )
 
@@ -25,7 +25,7 @@ import (
 func main() {
 	configFilePath := flag.String("config", "configs/app_config.yaml", "path to config directory")
 
-	global.GVA_VP = core.Viper(*configFilePath, &global.GVA_CONFIG) // 初始化Viper
+	global.GVA_VP = viper.Viper(*configFilePath, &global.GVA_CONFIG) // 初始化Viper
 	log.Init(&global.GVA_CONFIG.Zap)
 	defer log.Flush()
 	ding.Init(global.GVA_CONFIG.Dingding)
