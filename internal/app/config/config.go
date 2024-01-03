@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"github.com/championlong/go-quick-start/pkg/viper"
 
 	"github.com/championlong/go-quick-start/internal/pkg/options"
 	"github.com/championlong/go-quick-start/pkg/log"
@@ -44,4 +45,8 @@ func (o *Server) String() string {
 	data, _ := json.Marshal(o)
 
 	return string(data)
+}
+
+func (o *Server) GetConfigType() string {
+	return viper.ConfigTypeYaml
 }
