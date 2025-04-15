@@ -9,6 +9,7 @@ require (
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/braintree/manners v0.0.0-20160418043613-82a8879fc5fd
 	github.com/championlong/robot-talk-sdk v1.0.1
+	github.com/ebfe/scard v0.0.0-20241214075232-7af069cabc25
 	github.com/fatih/color v1.13.0
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
@@ -40,18 +41,19 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.10.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/gin-swagger v1.4.1
 	github.com/swaggo/swag v1.16.2
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.34
 	github.com/unrolled/secure v1.10.0
 	github.com/wvanbergen/kafka v0.0.0-20171203153745-e2edea948ddf
 	github.com/wvanbergen/kazoo-go v0.0.0-20180202103751-f72d8611297a // indirect
+	github.com/xuri/excelize/v2 v2.9.0
 	go.uber.org/zap v1.21.0
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
-	golang.org/x/net v0.8.0
-	golang.org/x/sync v0.1.0
-	golang.org/x/tools v0.7.0
+	golang.org/x/crypto v0.28.0
+	golang.org/x/net v0.30.0
+	golang.org/x/sync v0.8.0
+	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d
 	google.golang.org/grpc v1.45.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gorm.io/driver/mysql v1.3.3
